@@ -248,6 +248,7 @@ function generateCertificate() {
     const firstInput = document.getElementById("firstNameInput");
     const lastInput  = document.getElementById("lastNameInput");
 
+    // Form Validation
     if (!firstName || !lastName) {
         nameError.style.display = "block";
         if (!firstName) firstInput.classList.add("input-error");
@@ -266,102 +267,139 @@ function generateCertificate() {
     const c = document.getElementById("certCanvas");
     const x = c.getContext("2d");
 
-    // Background
-    x.fillStyle = "#fffdf5";
-    x.fillRect(0, 0, 900, 650);
+    // Scale 2x to utilize the 1800x1300 HD canvas
+    x.scale(2, 2);
 
-    // Decorative background pattern
-    x.globalAlpha = 0.04;
-    x.fillStyle = "#1a4a7c";
-    for (let i = 0; i < 900; i += 40) {
-        for (let j = 0; j < 650; j += 40) {
-            x.beginPath(); x.arc(i, j, 15, 0, Math.PI * 2); x.fill();
+    // Prepare dynamic images
+    const logoImg = new Image();
+    const qrImg = new Image();
+    logoImg.src = 'BreathLinkSeal.png';
+    qrImg.src = 'qrcode.jpg';
+
+    let imagesLoaded = 0;
+
+    const finalizeCertificate = () => {
+        imagesLoaded++;
+        // Wait for both images to be fully loaded into memory
+        if(imagesLoaded === 2) {
+            
+            // 1. Background
+            x.fillStyle = "#fffdf5"; // Warm ivory professional background
+            x.fillRect(0, 0, 900, 650);
+
+            // 2. Decorative background pattern
+            x.globalAlpha = 0.03;
+            x.fillStyle = "#1a4a7c";
+            for (let i = 0; i < 900; i += 40) {
+                for (let j = 0; j < 650; j += 40) {
+                    x.beginPath(); x.arc(i, j, 15, 0, Math.PI * 2); x.fill();
+                }
+            }
+            x.globalAlpha = 1;
+
+            // 3. PROFESSIONAL METALLIC GOLD BORDER
+            const goldGradient = x.createLinearGradient(0, 0, 900, 650);
+            goldGradient.addColorStop(0, '#BF953F');
+            goldGradient.addColorStop(0.25, '#FCF6BA');
+            goldGradient.addColorStop(0.5, '#B38728');
+            goldGradient.addColorStop(0.75, '#FBF5B7');
+            goldGradient.addColorStop(1, '#AA771C');
+            
+            // Outer dark blue boundary
+            x.strokeStyle = "#1a4a7c"; x.lineWidth = 4; x.strokeRect(16, 16, 868, 618);
+            
+            // Thick Gold border
+            x.strokeStyle = goldGradient; 
+            x.lineWidth = 14; 
+            x.strokeRect(24, 24, 852, 602);
+            
+            // Inner dark blue boundary
+            x.strokeStyle = "#1a4a7c"; x.lineWidth = 2; x.strokeRect(36, 36, 828, 578);
+
+            // Gold Corner ornaments
+            const drawCorner = (cx, cy, angle) => {
+                x.save(); x.translate(cx, cy); x.rotate(angle);
+                x.strokeStyle = goldGradient; x.lineWidth = 3;
+                x.beginPath(); x.moveTo(0, 0); x.lineTo(35, 0); x.moveTo(0, 0); x.lineTo(0, 35); x.stroke();
+                x.restore();
+            };
+            drawCorner(36, 36, 0);
+            drawCorner(864, 36, Math.PI / 2);
+            drawCorner(864, 614, Math.PI);
+            drawCorner(36, 614, -Math.PI / 2);
+
+            // 4. Header
+            x.fillStyle = "#1a4a7c";
+            x.textAlign = "center";
+            x.font = "bold 32px Georgia, serif";
+            x.fillText("GLOBAL BREATH-LINK INITIATIVE", 450, 100);
+
+            // Subtitle
+            x.fillStyle = "#AA771C"; // Dark gold text
+            x.font = "italic 18px Georgia, serif";
+            x.fillText("Certificate of Competency", 450, 135);
+            
+            // Subtle horizontal divider
+            x.strokeStyle = goldGradient; x.lineWidth = 1.5;
+            x.beginPath(); x.moveTo(300, 150); x.lineTo(600, 150); x.stroke();
+
+            // 5. Body text
+            x.fillStyle = "#444";
+            x.font = "18px Georgia, serif";
+            x.fillText("This document certifies that", 450, 210);
+
+            // Recipient name
+            x.fillStyle = "#1a4a7c";
+            x.font = "bold 52px Georgia, serif";
+            x.fillText(fullName, 450, 280);
+            
+            // Name underline
+            const nameWidth = x.measureText(fullName).width;
+            x.strokeStyle = goldGradient; x.lineWidth = 2;
+            x.beginPath(); x.moveTo(450 - nameWidth/2 - 20, 295); x.lineTo(450 + nameWidth/2 + 20, 295); x.stroke();
+
+            // Achievement text
+            x.fillStyle = "#444";
+            x.font = "18px Georgia, serif";
+            x.fillText("has successfully completed advanced pathological simulation", 450, 350);
+            x.fillText("and diagnostic training for:", 450, 375);
+
+            // Dynamic Pathology Type
+            x.fillStyle = "#27ae60";
+            x.font = "bold 42px Arial, sans-serif";
+            x.fillText((currentType || 'RADON').toUpperCase() + " PATHOLOGY", 450, 435);
+
+            // Footer info
+            x.fillStyle = "#666";
+            x.font = "14px Arial, sans-serif";
+            x.fillText("Issued by the Global Breath-Link Initiative", 450, 485);
+            x.fillText("Date: " + new Date().toLocaleDateString('en-US', {year:'numeric', month:'long', day:'numeric'}), 450, 505);
+
+        // 6. SCANNABLE QR CODE
+            // Moved to the bottom-right corner to make room for the larger logo
+            x.drawImage(qrImg, 737, 498, 90, 90); 
+
+
+            // 7. OFFICIAL LOGO
+            // Moved to the bottom-left corner, 50% larger (128x128), vertically balanced
+            x.drawImage(logoImg,  115, 450, 140, 140); 
+
+            // Reset Transform to prevent scaling loops
+            x.setTransform(1, 0, 0, 1, 0, 0);
+
+            // 8. Trigger Download
+            const link = document.createElement('a');
+            link.download = 'BreathLink_Certificate_' + (currentType || 'radon') + '_' + firstName + '_' + lastName + '.png';
+            link.href = c.toDataURL('image/png', 1.0);
+            link.click();
         }
-    }
-    x.globalAlpha = 1;
-
-    // Borders
-    x.strokeStyle = "#1a4a7c"; x.lineWidth = 18; x.strokeRect(12, 12, 876, 626);
-    x.strokeStyle = "#c9a227"; x.lineWidth = 4;  x.strokeRect(28, 28, 844, 594);
-    x.strokeStyle = "#1a4a7c"; x.lineWidth = 1.5; x.strokeRect(36, 36, 828, 578);
-
-    // Corner ornaments
-    const drawCorner = (cx, cy, angle) => {
-        x.save(); x.translate(cx, cy); x.rotate(angle);
-        x.strokeStyle = "#c9a227"; x.lineWidth = 2;
-        x.beginPath(); x.moveTo(0, 0); x.lineTo(30, 0); x.moveTo(0, 0); x.lineTo(0, 30); x.stroke();
-        x.restore();
     };
-    drawCorner(36, 36, 0);
-    drawCorner(864, 36, Math.PI / 2);
-    drawCorner(864, 614, Math.PI);
-    drawCorner(36, 614, -Math.PI / 2);
 
-    // Header ribbon
-    x.fillStyle = "#1a4a7c";
-    x.fillRect(0, 55, 900, 75);
-    x.textAlign = "center";
-    x.fillStyle = "#ffffff";
-    x.font = "bold 28px Georgia, serif";
-    x.fillText("GLOBAL BREATH-LINK INITIATIVE", 450, 100);
-
-    // Subtitle
-    x.fillStyle = "#c9a227";
-    x.font = "italic 15px Georgia, serif";
-    x.fillText("Certificate of Clinical Competency", 450, 170);
-    x.strokeStyle = "#c9a227"; x.lineWidth = 1;
-    x.beginPath(); x.moveTo(250, 180); x.lineTo(650, 180); x.stroke();
-
-    // Body text
-    x.fillStyle = "#444";
-    x.font = "16px Georgia, serif";
-    x.fillText("This document certifies that", 450, 220);
-
-    // Recipient name
-    x.fillStyle = "#1a4a7c";
-    x.font = "bold 48px Georgia, serif";
-    x.fillText(fullName, 450, 290);
-    const nameWidth = x.measureText(fullName).width;
-    x.strokeStyle = "#c9a227"; x.lineWidth = 2;
-    x.beginPath(); x.moveTo(450 - nameWidth/2, 302); x.lineTo(450 + nameWidth/2, 302); x.stroke();
-
-    // Achievement text
-    x.fillStyle = "#444";
-    x.font = "16px Georgia, serif";
-    x.fillText("has successfully completed advanced pathological simulation", 450, 340);
-    x.fillText("and diagnostic training for:", 450, 365);
-
-    // Pathology type
-    x.fillStyle = "#27ae60";
-    x.font = "bold 36px Arial, sans-serif";
-    x.fillText(currentType.toUpperCase() + " PATHOLOGY", 450, 420);
-
-    // Divider
-    x.strokeStyle = "#ddd"; x.lineWidth = 1;
-    x.beginPath(); x.moveTo(100, 450); x.lineTo(800, 450); x.stroke();
-
-    // Footer info
-    x.fillStyle = "#666";
-    x.font = "13px Arial, sans-serif";
-    x.fillText("Issued by the Global Breath-Link Initiative", 450, 480);
-    x.fillText("Date: " + new Date().toLocaleDateString('en-US', {year:'numeric', month:'long', day:'numeric'}), 450, 502);
-
-    // Official seal
-    const sx = 450, sy = 565;
-    x.beginPath(); x.arc(sx, sy, 48, 0, Math.PI*2);
-    x.fillStyle = "#c9a227"; x.fill();
-    x.beginPath(); x.arc(sx, sy, 40, 0, Math.PI*2);
-    x.fillStyle = "#27ae60"; x.fill();
-    x.beginPath(); x.arc(sx, sy, 34, 0, Math.PI*2);
-    x.strokeStyle = "#fff"; x.lineWidth = 2; x.stroke();
-    x.fillStyle = "#fff";
-    x.font = "bold 9px Arial, sans-serif";
-    x.fillText("GLOBAL BREATH-LINK", sx, sy - 7);
-    x.fillText("✦ OFFICIAL SEAL ✦", sx, sy + 8);
-
-    // Download
-    const link = document.createElement('a');
-    link.download = 'BreathLink_Certificate_' + currentType + '_' + firstName + '_' + lastName + '.png';
-    link.href = c.toDataURL('image/png');
-    link.click();
+    // Fire the rendering once images are ready
+    logoImg.onload = finalizeCertificate;
+    qrImg.onload = finalizeCertificate;
+    
+    // Fallback if images are missing
+    logoImg.onerror = finalizeCertificate;
+    qrImg.onerror = finalizeCertificate;
 }
