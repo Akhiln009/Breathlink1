@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -720,7 +723,7 @@ body::before {
   <!-- ── SECTION 4: QUIZ GAME ── -->
   <div class="section-card card-yellow">
     <div class="section-title" style="color:#e67e22;">🎮 Lung Quiz Game!</div>
-    <div class="section-sub">Answer 6 questions about your lungs and earn stars! ⭐</div>
+    <div class="section-sub">Answer 6 questions about your lungs and earn certificate! ⭐</div>
 
     <div class="quiz-progress">
       <div class="quiz-progress-fill" id="quizProgress" style="width:0%"></div>
@@ -769,7 +772,7 @@ body::before {
 </div><!-- /wrap -->
 
 <!-- Invisible Canvas Layer to draw the Certificate Graphic -->
-<canvas id="kidsCertCanvas" width="800" height="550" style="display:none;"></canvas>
+<canvas id="kidsCertCanvas" width="1600" height="1200" style="display:none;"></canvas>
 
 <footer style="background:#2d3436; color:rgba(255,255,255,0.6); text-align:center; padding:30px; font-size:0.85rem; font-weight:600;">
   🫁 Global Breath-Link Initiative | breathlink.org<br>
@@ -953,7 +956,7 @@ function restartQuiz() {
 }
 
 // ══════════════════════════
-// CANVA CERTIFICATE GENERATOR
+// CANVA CERTIFICATE GENERATOR (HD VERSION)
 // ══════════════════════════
 function generateKidsCertificate() {
   const kidName = document.getElementById('kidsNameInput').value.trim();
@@ -965,82 +968,97 @@ function generateKidsCertificate() {
   const canvas = document.getElementById('kidsCertCanvas');
   const ctx = canvas.getContext('2d');
 
-  // Fill Background color (Soft cheerful blue sky layout)
+  // Scale the context 2x for High Definition rendering
+  ctx.scale(2, 2);
+
+  // Fill Background color (Expanded height to 600)
   ctx.fillStyle = "#e0f4ff";
-  ctx.fillRect(0, 0, 800, 550);
+  ctx.fillRect(0, 0, 800, 600);
 
   // White center panel card
   ctx.fillStyle = "#ffffff";
   ctx.beginPath();
-  ctx.roundRect(30, 30, 740, 490, 24);
+  ctx.roundRect(30, 30, 740, 540, 24);
   ctx.fill();
 
-  // Vibrant borders matching standard styles
-  ctx.strokeStyle = "#3b9edd"; // blue
+  // Vibrant borders
+  ctx.strokeStyle = "#3b9edd"; 
   ctx.lineWidth = 10;
   ctx.stroke();
 
-  ctx.strokeStyle = "#4ecb71"; // green inner ribbon ring
+  ctx.strokeStyle = "#4ecb71"; 
   ctx.lineWidth = 3;
-  ctx.strokeRect(45, 45, 710, 460);
+  ctx.strokeRect(45, 45, 710, 510);
 
   // Titles
   ctx.textAlign = "center";
   ctx.fillStyle = "#3b9edd";
   ctx.font = "bold 34px 'Fredoka One', Arial, sans-serif";
-  ctx.fillText("BREATHLINK LUNG HEALTH HERO", 400, 110);
+  ctx.fillText("BREATHLINK.ORG LUNG HEALTH HERO", 400, 100);
 
-  ctx.fillStyle = "#ff9a3c"; // Orange badge header
+  ctx.fillStyle = "#ff9a3c"; 
   ctx.font = "bold 20px 'Fredoka One', Arial, sans-serif";
-  ctx.fillText("★ CERTIFICATE OF ACHIEVEMENT ★", 400, 160);
+  ctx.fillText("★ CERTIFICATE OF ACHIEVEMENT ★", 400, 150);
 
   // Sub text descriptions
   ctx.fillStyle = "#555555";
   ctx.font = "18px 'Nunito', Arial, sans-serif";
-  ctx.fillText("This award proudly certifies that the lung expert:", 400, 220);
+  ctx.fillText("This award proudly certifies that the lung expert:", 400, 210);
 
   // Student Kid Name Line Display
-  ctx.fillStyle = "#4ecb71"; // Healthy green name font
+  ctx.fillStyle = "#4ecb71"; 
   ctx.font = "bold 42px 'Fredoka One', Arial, sans-serif";
-  ctx.fillText(kidName.toUpperCase(), 400, 290);
+  ctx.fillText(kidName.toUpperCase(), 400, 270);
 
-  // Decorative border lines beneath the recipient's name block
+  // Decorative border lines
   ctx.strokeStyle = "#ffd93d";
   ctx.lineWidth = 4;
   ctx.beginPath();
-  ctx.moveTo(200, 310);
-  ctx.lineTo(600, 310);
+  ctx.moveTo(200, 290);
+  ctx.lineTo(600, 290);
   ctx.stroke();
 
-  // Paragraph achievement text info details
+  // Paragraph achievement text
   ctx.fillStyle = "#555555";
   ctx.font = "bold 16px 'Nunito', Arial, sans-serif";
-  ctx.fillText("Has completed advanced interactive respiratory workshops, mastered belly breathing,", 400, 360);
-  ctx.fillText("and passed the Kids Zone Examination with a perfect 6/6 score! ⭐", 400, 395);
+  ctx.fillText("Has completed interactive respiratory activities, mastered belly breathing,", 400, 340);
+  ctx.fillText("and passed the Kids Zone Examination with a perfect 6/6 score! ⭐", 400, 375);
 
-  // Official Seal Badge Icon graphics built into canvas layout
-  ctx.fillStyle = "#ffd93d"; // golden badge circle fill
-  ctx.beginPath();
-  ctx.arc(400, 465, 38, 0, Math.PI * 2);
-  ctx.fill();
+  // Load Logo and QR Code dynamically
+  const logoImg = new Image();
+  const qrImg = new Image();
+  
+  logoImg.src = 'BreathLinkLogoHD.png';
+  qrImg.src = 'qrcode.jpg';
+  
+  let imagesLoaded = 0;
+  
+  const finalizeCertificate = () => {
+      imagesLoaded++;
+      if (imagesLoaded === 2) {
+          // Draw Logo larger (130x130) on the left
+          ctx.drawImage(logoImg, 250, 405, 130, 130);
+          
+          // Draw QR Code larger (130x130) on the right
+          ctx.drawImage(qrImg, 420, 405, 130, 130);
+          
+          // Download Trigger
+          const fileLink = document.createElement('a');
+          fileLink.download = 'BreathLink_Kids_Hero_' + kidName.replace(/\s+/g, '_') + '.png';
+          fileLink.href = canvas.toDataURL('image/png');
+          fileLink.click();
 
-  ctx.fillStyle = "#3b9edd"; // blue secondary mini circle ribbon
-  ctx.beginPath();
-  ctx.arc(400, 465, 30, 0, Math.PI * 2);
-  ctx.fill();
+          // Reset the scale so it doesn't exponentially multiply on next clicks
+          ctx.setTransform(1, 0, 0, 1, 0, 0); 
+      }
+  };
 
-  ctx.fillStyle = "#ffffff";
-  ctx.textAlign = "center";
-  ctx.font = "bold 18px Arial, sans-serif";
-  ctx.fillText("🫁", 400, 472); // center lung icon element emoji representation
-
-  // Download Trigger action binding
-  const fileLink = document.createElement('a');
-  fileLink.download = 'BreathLink_Kids_Hero_' + kidName.replace(/\s+/g, '_') + '.png';
-  fileLink.href = canvas.toDataURL('image/png');
-  fileLink.click();
+  logoImg.onload = finalizeCertificate;
+  qrImg.onload = finalizeCertificate;
+  
+  logoImg.onerror = finalizeCertificate;
+  qrImg.onerror = finalizeCertificate;
 }
-
 // ══════════════════════════
 // PLEDGE
 // ══════════════════════════
