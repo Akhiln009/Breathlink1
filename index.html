@@ -22,25 +22,38 @@
     <a href="awareness.html">🫁 Awareness Simulator</a>
     <a href="detection.html">🔬 AI Acoustic Biopsy</a>
     <a href="treatment.html">💊 Treatment Plan</a>
-<!-- Distinct Kids Zone Button -->
     <a href="kids.html" class="kids-nav-btn">🌈 Kids Zone</a>
     
     <div class="custom-translator">
-    <select id="custom-language-select" onchange="triggerGoogleTranslate(this.value)">
-        <option value="en">EN - English</option>
-        <option value="es">ES - Español</option>
-        <option value="zh-CN">ZH - 中文</option>
-        <option value="hi">HI - हिन्दी</option>
-        <option value="ar">AR - العربية</option>
-        <option value="pt">PT - Português</option>
-        <option value="bn">BN - বাংলা</option>
-        <option value="ru">RU - Русский</option>
-        <option value="fr">FR - Français</option>
-        <option value="de">DE - Deutsch</option>
-    </select>
+        <select id="custom-language-select" onchange="triggerGoogleTranslate(this.value)">
+            <option value="en">EN - English</option>
+            <option value="es">ES - Español</option>
+            <option value="zh-CN">ZH - 中文</option>
+            <option value="hi">HI - हिन्दी</option>
+            <option value="ar">AR - العربية</option>
+            <option value="pt">PT - Português</option>
+            <option value="bn">BN - বাংলা</option>
+            <option value="ru">RU - Русский</option>
+            <option value="fr">FR - Français</option>
+            <option value="de">DE - Deutsch</option>
+        </select>
+    </div>
 </div>
+
+<div id="chat-container">
+    <div id="chat-header">
+        <span>Breathlink Support</span>
+        <button id="close-btn">−</button>
+    </div>
+    <div id="chat-box">
+        <div class="message bot-message">Hello! How can I help you with Breathlink today?</div>
+    </div>
+    <div id="chat-input-area">
+        <input type="text" id="user-input" placeholder="Ask a question..." />
+        <button id="send-btn">Send</button>
+    </div>
 </div>
-<!-- 1. Your Custom Clean Dropdown -->
+<button id="chat-toggle-btn">💬 Help</button>
 
 <div class="container" id="mainContent">
     <section>
@@ -132,8 +145,9 @@
     </section>
 </div>
 
+<canvas id="certCanvas" width="900" height="650" style="display:none;"></canvas>
+
 <footer style="background: #060e1a; padding: 25px 20px; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; font-family: 'Segoe UI', Tahoma, sans-serif; font-size: 0.85rem; color: #888;">
-    
     <div style="margin-bottom: 6px;">
         <strong style="color: #ddd; letter-spacing: 0.05em;">Global Breath-Link Initiative</strong> &nbsp;|&nbsp; 
         Spearheaded by 
@@ -141,20 +155,14 @@
         &amp; 
         <span style="font-weight: 800; letter-spacing: 0.02em; background: linear-gradient(90deg, #0abde3, #27ae60); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Akhil Nagalla</span>
     </div>
-
     <div>
         📧 <a href="mailto:contact@breathlink.org" style="color: var(--secondary); text-decoration: none; font-weight: 600; transition: 0.2s;" onmouseover="this.style.color='#0abde3'" onmouseout="this.style.color='var(--secondary)'">contact@breathlink.org</a> 
         &nbsp;|&nbsp; &copy; 2026 All Rights Reserved
     </div>
-
 </footer>
 
-
-
-<!-- 2. The Hidden Google Translate Engine -->
 <div id="google_translate_element" style="display:none;"></div>
 
-<!-- 3. The Scripts -->
 <script type="text/javascript">
 // Initialize the hidden Google widget
 function googleTranslateElementInit() {
@@ -176,6 +184,10 @@ function triggerGoogleTranslate(langCode) {
 }
 </script>
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script src="data.js"></script>
+<script src="script.js"></script>
+<script src="main.js"></script>
 
 </body>
 </html>
