@@ -1,7 +1,4 @@
 <!DOCTYPE html>
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -438,6 +435,44 @@ body::before {
   margin: 12px 0;
 }
 
+/* ── CERTIFICATE WIDGET STYLES ── */
+.kids-cert-zone {
+  margin: 20px auto;
+  background: #fdfaf0;
+  border: 3px dashed var(--orange);
+  border-radius: 18px;
+  padding: 24px;
+  max-width: 440px;
+  display: none;
+}
+.kids-cert-zone h4 { font-family: 'Fredoka One', cursive; color: var(--orange); margin-bottom: 8px; font-size: 1.2rem;}
+.kids-cert-zone input {
+  width: 80%;
+  padding: 10px 14px;
+  border-radius: 20px;
+  border: 2px solid #ccc;
+  font-family: inherit;
+  font-size: 1rem;
+  outline: none;
+  text-align: center;
+  font-weight: bold;
+}
+.kids-cert-zone input:focus { border-color: var(--orange); }
+.btn-cert {
+  background: var(--orange);
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 50px;
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-top: 14px;
+  box-shadow: 0 4px 12px rgba(255,154,60,0.3);
+  transition: all 0.2s;
+}
+.btn-cert:hover { transform: scale(1.03); }
+
 .quiz-restart {
   background: var(--yellow);
   color: var(--dark);
@@ -704,6 +739,16 @@ body::before {
       <h3 id="resultTitle">Amazing job!</h3>
       <div class="quiz-score-display" id="resultScore">0/6</div>
       <p id="resultMsg" style="color:#555;font-weight:700;font-size:1rem;"></p>
+      
+      <!-- Hidden Name Input Container for Kids Certificate -->
+      <div class="kids-cert-zone" id="kidsCertZone">
+         <h4>🎓 Print Your Official Badge!</h4>
+         <p style="font-size:0.85rem; color:#666; margin-bottom:12px; font-weight:bold;">Type your name to get your certificate badge:</p>
+         <input type="text" id="kidsNameInput" placeholder="Your Name Here..." maxlength="25">
+         <br>
+         <button class="btn-cert" onclick="generateKidsCertificate()">📥 Download Certificate</button>
+      </div>
+
       <button class="quiz-restart" onclick="restartQuiz()">🔄 Play Again!</button>
     </div>
   </div>
@@ -722,6 +767,9 @@ body::before {
   </div>
 
 </div><!-- /wrap -->
+
+<!-- Invisible Canvas Layer to draw the Certificate Graphic -->
+<canvas id="kidsCertCanvas" width="800" height="550" style="display:none;"></canvas>
 
 <footer style="background:#2d3436; color:rgba(255,255,255,0.6); text-align:center; padding:30px; font-size:0.85rem; font-weight:600;">
   🫁 Global Breath-Link Initiative | breathlink.org<br>
@@ -884,10 +932,10 @@ function showQuizResult() {
 
   const pct = quizScore / questions.length;
   let emoji, title, msg;
-  if (pct === 1)         { emoji='🏆'; title='PERFECT SCORE!';     msg='You are a Lung Health GENIUS! Share what you learned with your friends!'; }
-  else if (pct >= 0.67) { emoji='🌟'; title='Amazing Job!';        msg='You really know your lungs! Try again to get a perfect score!'; }
-  else if (pct >= 0.5)  { emoji='👍'; title='Good Work!';          msg='Not bad! Read the fun facts again and try to beat your score!'; }
-  else                  { emoji='📚'; title='Keep Learning!';      msg='No worries! Read through the lung facts above and try again!'; }
+  if (pct === 1)         { emoji='🏆'; title='PERFECT SCORE!';     msg='You are a Lung Health GENIUS! Type your name below to download your Official Certificate badge!'; document.getElementById('kidsCertZone').style.display='block';}
+  else if (pct >= 0.67) { emoji='🌟'; title='Amazing Job!';        msg='You really know your lungs! Try again to get a perfect score and unlock your certificate!'; document.getElementById('kidsCertZone').style.display='none';}
+  else if (pct >= 0.5)  { emoji='👍'; title='Good Work!';          msg='Not bad! Read the fun facts again and try to beat your score!'; document.getElementById('kidsCertZone').style.display='none';}
+  else                  { emoji='📚'; title='Keep Learning!';      msg='No worries! Read through the lung facts above and try again!'; document.getElementById('kidsCertZone').style.display='none';}
 
   document.getElementById('resultEmoji').textContent = emoji;
   document.getElementById('resultTitle').textContent = title;
@@ -900,7 +948,97 @@ function restartQuiz() {
   currentQ = 0; quizScore = 0; answered = false;
   document.getElementById('quizMain').style.display = 'block';
   document.getElementById('quizResult').style.display = 'none';
+  document.getElementById('kidsNameInput').value = '';
   loadQuestion();
+}
+
+// ══════════════════════════
+// CANVA CERTIFICATE GENERATOR
+// ══════════════════════════
+function generateKidsCertificate() {
+  const kidName = document.getElementById('kidsNameInput').value.trim();
+  if(!kidName) {
+     alert("Please type your name first!");
+     return;
+  }
+
+  const canvas = document.getElementById('kidsCertCanvas');
+  const ctx = canvas.getContext('2d');
+
+  // Fill Background color (Soft cheerful blue sky layout)
+  ctx.fillStyle = "#e0f4ff";
+  ctx.fillRect(0, 0, 800, 550);
+
+  // White center panel card
+  ctx.fillStyle = "#ffffff";
+  ctx.beginPath();
+  ctx.roundRect(30, 30, 740, 490, 24);
+  ctx.fill();
+
+  // Vibrant borders matching standard styles
+  ctx.strokeStyle = "#3b9edd"; // blue
+  ctx.lineWidth = 10;
+  ctx.stroke();
+
+  ctx.strokeStyle = "#4ecb71"; // green inner ribbon ring
+  ctx.lineWidth = 3;
+  ctx.strokeRect(45, 45, 710, 460);
+
+  // Titles
+  ctx.textAlign = "center";
+  ctx.fillStyle = "#3b9edd";
+  ctx.font = "bold 34px 'Fredoka One', Arial, sans-serif";
+  ctx.fillText("BREATHLINK LUNG HEALTH HERO", 400, 110);
+
+  ctx.fillStyle = "#ff9a3c"; // Orange badge header
+  ctx.font = "bold 20px 'Fredoka One', Arial, sans-serif";
+  ctx.fillText("★ CERTIFICATE OF ACHIEVEMENT ★", 400, 160);
+
+  // Sub text descriptions
+  ctx.fillStyle = "#555555";
+  ctx.font = "18px 'Nunito', Arial, sans-serif";
+  ctx.fillText("This award proudly certifies that the lung expert:", 400, 220);
+
+  // Student Kid Name Line Display
+  ctx.fillStyle = "#4ecb71"; // Healthy green name font
+  ctx.font = "bold 42px 'Fredoka One', Arial, sans-serif";
+  ctx.fillText(kidName.toUpperCase(), 400, 290);
+
+  // Decorative border lines beneath the recipient's name block
+  ctx.strokeStyle = "#ffd93d";
+  ctx.lineWidth = 4;
+  ctx.beginPath();
+  ctx.moveTo(200, 310);
+  ctx.lineTo(600, 310);
+  ctx.stroke();
+
+  // Paragraph achievement text info details
+  ctx.fillStyle = "#555555";
+  ctx.font = "bold 16px 'Nunito', Arial, sans-serif";
+  ctx.fillText("Has completed advanced interactive respiratory workshops, mastered belly breathing,", 400, 360);
+  ctx.fillText("and passed the Kids Zone Examination with a perfect 6/6 score! ⭐", 400, 395);
+
+  // Official Seal Badge Icon graphics built into canvas layout
+  ctx.fillStyle = "#ffd93d"; // golden badge circle fill
+  ctx.beginPath();
+  ctx.arc(400, 465, 38, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.fillStyle = "#3b9edd"; // blue secondary mini circle ribbon
+  ctx.beginPath();
+  ctx.arc(400, 465, 30, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.fillStyle = "#ffffff";
+  ctx.textAlign = "center";
+  ctx.font = "bold 18px Arial, sans-serif";
+  ctx.fillText("🫁", 400, 472); // center lung icon element emoji representation
+
+  // Download Trigger action binding
+  const fileLink = document.createElement('a');
+  fileLink.download = 'BreathLink_Kids_Hero_' + kidName.replace(/\s+/g, '_') + '.png';
+  fileLink.href = canvas.toDataURL('image/png');
+  fileLink.click();
 }
 
 // ══════════════════════════
