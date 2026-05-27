@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Account Access — Global Breath-Link</title>
+<link rel="stylesheet" href="style.css">
+<style>
+/* AUTH SPECIFIC STYLES - LIGHT THEME */
+.auth-wrap { max-width: 600px; margin: 0 auto; padding: 20px 0; }
+
+.auth-tabs { display: flex; border-bottom: 2px solid #eee; margin-bottom: 25px; }
+.auth-tab {
+    flex: 1; text-align: center; padding: 15px; font-size: 1.1rem; 
+    font-weight: bold; color: #888; cursor: pointer; transition: 0.3s;
+    border-bottom: 3px solid transparent; margin-bottom: -2px;
+}
+.auth-tab:hover { color: var(--primary); }
+.auth-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+.auth-form { display: none; animation: fadeIn 0.3s ease; }
+.auth-form.active { display: block; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+.form-group { margin-bottom: 15px; text-align: left; }
+.form-group label { display: block; font-size: 0.85rem; color: #555; font-weight: bold; margin-bottom: 6px; letter-spacing: 0.05em; text-transform: uppercase; }
+.form-input {
+    width: 100%; background: #fff; border: 1px solid #ccc; border-radius: 6px; 
+    color: #333; padding: 12px 14px; font-size: 0.95rem; outline: none; 
+    transition: border-color 0.2s; box-shadow: inset 0 1px 3px rgba(0,0,0,0.05); 
+    font-family: 'Segoe UI', Tahoma, sans-serif; box-sizing: border-box;
+}
+.form-input:focus { border-color: var(--secondary); box-shadow: 0 0 5px rgba(39,174,96,0.3); }
+
+.reg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.reg-grid.three-col { grid-template-columns: 1fr 1fr 1fr; }
+.full-width { grid-column: 1 / -1; }
+
+@media (max-width: 600px) { .reg-grid, .reg-grid.three-col { grid-template-columns: 1fr; } }
+
+.btn-auth {
+    width: 100%; background: var(--secondary); color: white; padding: 14px; 
+    border: none; border-radius: 8px; cursor: pointer; font-weight: bold; 
+    font-size: 1.05rem; transition: 0.2s; margin-top: 10px;
+}
+.btn-auth:hover { background: #22c774; box-shadow: 0 4px 15px rgba(39,174,96,0.3); transform: translateY(-2px); }
+
+.forgot-link { display: block; text-align: right; font-size: 0.85rem; color: var(--primary); text-decoration: none; margin-top: 8px; font-weight: 500; }
+.privacy-notice { background: #f8f9fa; border: 1px solid #eee; border-radius: 8px; padding: 15px; font-size: 0.85rem; color: #666; margin-top: 25px; line-height: 1.6; text-align: left; }
+
+/* Notification Banner */
+#notification { display: none; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-weight: bold; text-align: center; }
+.alert-success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+.alert-error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+
+/* Dashboard UI (Shown when logged in) */
+#dashboardView { display: none; text-align: center; }
+.user-profile-card { background: #fdfdfd; border: 1px solid #eee; border-radius: 8px; padding: 25px; margin-bottom: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.02); text-align: left;}
+.profile-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f9f9f9; }
+.profile-row:last-child { border-bottom: none; }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Global Breath-Link Initiative</h1>
+    <p>Democratizing Lung Health: A Triage-to-Treatment Ecosystem</p>
+</header>
+
+<div class="top-nav" id="mainNav">
+    <a href="index.html">🏠 Home</a>
+    <a href="awareness.html">🫁 Awareness Simulator</a>
+    <a href="detection.html">🔬 AI Acoustic Biopsy</a>
+    <a href="treatment.html">💊 Treatment Plan</a>
+    <a href="auth.html" class="active" id="navAuthLink">👤 Account Access</a>
+</div>
+
+<div class="container" id="mainContent">
+    <div class="auth-wrap">
+
+        <div id="notification"></div>
+
+        <div id="authView">
+            <div style="text-align:center; margin-bottom:30px; padding-top:10px;">
+                <div style="display:inline-block; background:#e8f4fd; border:1px solid var(--primary); border-radius:20px; padding:6px 18px; font-size:0.8rem; font-weight: bold; color:var(--primary); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:16px;">SECURE PATIENT PORTAL</div>
+                <h2 style="font-size:2.2rem; margin-top:0; margin-bottom:10px; color:var(--primary);">Access Your History</h2>
+                <p style="color:#555; line-height:1.6; font-size:1.05rem;">Log in or create an account to securely store your AI Acoustic Biopsy results, track symptom progression, and save your treatment pathways.</p>
+            </div>
+
+            <div class="card" style="border-top-color: var(--secondary); padding: 0;">
+                <div class="auth-tabs">
+                    <div class="auth-tab active" id="tabLogin" onclick="switchTab('login')">Sign In</div>
+                    <div class="auth-tab" id="tabRegister" onclick="switchTab('register')">Create Account</div>
+                </div>
+
+                <div style="padding: 0 30px 30px 30px;">
+                    
+                    <form id="formLogin" class="auth-form active" onsubmit="loginUser(event)">
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" id="loginEmail" class="form-input" placeholder="name@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" id="loginPassword" class="form-input" placeholder="••••••••" required>
+                            <a href="#" class="forgot-link">Forgot Password?</a>
+                        </div>
+                        <button type="submit" class="btn-auth">Secure Sign In</button>
+                    </form>
+
+                    <form id="formRegister" class="auth-form" onsubmit="registerUser(event)">
+                        <div class="reg-grid three-col">
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" id="regFirstName" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Middle Name</label>
+                                <input type="text" id="regMiddleName" class="form-input" placeholder="(Optional)">
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" id="regLastName" class="form-input" required>
+                            </div>
+                        </div>
+
+                        <div class="reg-grid">
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="email" id="regEmail" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <input type="tel" id="regPhone" class="form-input" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label>Street Address</label>
+                            <input type="text" id="regAddress" class="form-input" placeholder="123 Main St, Apt 4B" required>
+                        </div>
+
+                        <div class="reg-grid three-col">
+                            <div class="form-group">
+                                <label>Country</label>
+                                <select id="regCountry" class="form-input" required>
+                                    <option value="">Select...</option>
+                                    <option value="US">United States</option>
+                                    <option value="UK">United Kingdom</option>
+                                    <option value="IN">India</option>
+                                    <option value="CA">Canada</option>
+                                    <option value="AU">Australia</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>State / Province</label>
+                                <input type="text" id="regState" class="form-input" required>
+                            </div>
+                            <div class="form-group">
+                                <label>ZIP / PIN Code</label>
+                                <input type="text" id="regZip" class="form-input" required>
+                            </div>
+                        </div>
+
+                        <div class="reg-grid" style="margin-top: 10px; border-top: 1px solid #eee; padding-top: 20px;">
+                            <div class="form-group">
+                                <label>Create Password</label>
+                                <input type="password" id="regPassword" class="form-input" placeholder="Min 8 characters" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Confirm Password</label>
+                                <input type="password" id="regConfirmPassword" class="form-input" required>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-auth" style="background: var(--primary);">Register Account</button>
+                        
+                        <div class="privacy-notice">
+                            🔒 <strong>Prototype Notice:</strong> Because this site is hosted on GitHub Pages, data is saved locally to your browser's memory. Real-world deployments will sync to an encrypted cloud database.
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        <div id="dashboardView">
+            <div style="text-align:center; margin-bottom:30px; padding-top:10px;">
+                <div style="display:inline-block; background:rgba(39,174,96,0.15); border:1px solid var(--secondary); border-radius:20px; padding:6px 18px; font-size:0.8rem; font-weight: bold; color:var(--secondary); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:16px;">SECURE SESSION ACTIVE</div>
+                <h2 style="font-size:2.2rem; margin-top:0; margin-bottom:10px; color:var(--primary);">Welcome, <span id="dashName">User</span></h2>
+            </div>
+
+            <div class="user-profile-card">
+                <h3 style="margin-top:0; color:var(--primary); border-bottom: 2px solid #f0f0f0; padding-bottom: 10px;">Profile Information</h3>
+                <div class="profile-row"><strong>Full Name:</strong> <span id="dashFullName"></span></div>
+                <div class="profile-row"><strong>Email:</strong> <span id="dashEmail"></span></div>
+                <div class="profile-row"><strong>Phone:</strong> <span id="dashPhone"></span></div>
+                <div class="profile-row"><strong>Address:</strong> <span id="dashAddress"></span></div>
+                <div class="profile-row"><strong>Location:</strong> <span id="dashLocation"></span></div>
+            </div>
+
+            <div class="reg-grid">
+                <button class="btn-auth" onclick="window.location.href='detection.html'" style="margin-top:0;">🔬 Start New Analysis</button>
+                <button class="btn-auth" onclick="logoutUser()" style="background:var(--danger); margin-top:0;">🚪 Secure Logout</button>
+            </div>
+            
+            <button class="btn-auth" onclick="deleteAccount()" style="background:transparent; color:var(--danger); border:1px solid var(--danger); margin-top:15px;">Delete My Account</button>
+        </div>
+
+    </div>
+</div>
+
+<footer style="background: #060e1a; padding: 25px 20px; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; font-family: 'Segoe UI', Tahoma, sans-serif; font-size: 0.85rem; color: #888;">
+    <div style="margin-bottom: 6px;">
+        <strong style="color: #ddd; letter-spacing: 0.05em;">Global Breath-Link Initiative</strong> &nbsp;|&nbsp; 
+        Spearheaded by 
+        <span style="font-weight: 800; letter-spacing: 0.02em; background: linear-gradient(90deg, #27ae60, #0abde3); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Ashrita Nagalla</span> 
+        &amp; 
+        <span style="font-weight: 800; letter-spacing: 0.02em; background: linear-gradient(90deg, #0abde3, #27ae60); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Akhil Nagalla</span>
+    </div>
+    <div>
+        📧 <a href="mailto:contact@breathlink.org" style="color: var(--secondary); text-decoration: none; font-weight: 600; transition: 0.2s;" onmouseover="this.style.color='#0abde3'" onmouseout="this.style.color='var(--secondary)'">contact@breathlink.org</a> 
+        &nbsp;|&nbsp; &copy; 2026 All Rights Reserved
+    </div>
+</footer>
+
+<script>
+// ==========================================
+// CLIENT-SIDE DATABASE USING LOCALSTORAGE
+// ==========================================
+
+// Initialize Database structure if it doesn't exist
+function initDB() {
+    if (!localStorage.getItem('breathlink_users')) {
+        localStorage.setItem('breathlink_users', JSON.stringify([]));
+    }
+}
+
+// ── UI LOGIC ──
+function switchTab(tab) {
+    document.getElementById('tabLogin').classList.remove('active');
+    document.getElementById('tabRegister').classList.remove('active');
+    document.getElementById('formLogin').classList.remove('active');
+    document.getElementById('formRegister').classList.remove('active');
+    document.getElementById('notification').style.display = 'none';
+
+    if (tab === 'login') {
+        document.getElementById('tabLogin').classList.add('active');
+        document.getElementById('formLogin').classList.add('active');
+    } else {
+        document.getElementById('tabRegister').classList.add('active');
+        document.getElementById('formRegister').classList.add('active');
+    }
+}
+
+function showNotification(msg, type) {
+    const banner = document.getElementById('notification');
+    banner.textContent = msg;
+    banner.className = type === 'success' ? 'alert-success' : 'alert-error';
+    banner.style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Check session on page load
+function checkSession() {
+    initDB();
+    const currentUser = JSON.parse(localStorage.getItem('breathlink_session'));
+    
+    if (currentUser) {
+        // Show Dashboard
+        document.getElementById('authView').style.display = 'none';
+        document.getElementById('dashboardView').style.display = 'block';
+        document.getElementById('navAuthLink').textContent = '👤 My Dashboard';
+        
+        // Populate Data
+        document.getElementById('dashName').textContent = currentUser.firstName;
+        document.getElementById('dashFullName').textContent = `${currentUser.firstName} ${currentUser.middleName} ${currentUser.lastName}`.replace(/  /g, ' ');
+        document.getElementById('dashEmail').textContent = currentUser.email;
+        document.getElementById('dashPhone').textContent = currentUser.phone;
+        document.getElementById('dashAddress').textContent = currentUser.address;
+        document.getElementById('dashLocation').textContent = `${currentUser.state}, ${currentUser.zipCode}, ${currentUser.country}`;
+    } else {
+        // Show Login/Register
+        document.getElementById('authView').style.display = 'block';
+        document.getElementById('dashboardView').style.display = 'none';
+        document.getElementById('navAuthLink').textContent = '👤 Account Access';
+    }
+}
+
+// ── CRUD OPERATIONS ──
+
+// 1. CREATE (Register User)
+function registerUser(e) {
+    e.preventDefault();
+    const pw1 = document.getElementById('regPassword').value;
+    const pw2 = document.getElementById('regConfirmPassword').value;
+    const email = document.getElementById('regEmail').value.toLowerCase();
+
+    if (pw1 !== pw2) { showNotification("Passwords do not match.", "error"); return; }
+    if (pw1.length < 8) { showNotification("Password must be at least 8 characters.", "error"); return; }
+
+    const users = JSON.parse(localStorage.getItem('breathlink_users'));
+    
+    // Check if email exists
+    if (users.find(u => u.email === email)) {
+        showNotification("Account with this email already exists. Please log in.", "error");
+        return;
+    }
+
+    // Create new user object (simulating a DB record)
+    const newUser = {
+        id: Date.now().toString(),
+        firstName: document.getElementById('regFirstName').value,
+        middleName: document.getElementById('regMiddleName').value,
+        lastName: document.getElementById('regLastName').value,
+        email: email,
+        phone: document.getElementById('regPhone').value,
+        address: document.getElementById('regAddress').value,
+        country: document.getElementById('regCountry').value,
+        state: document.getElementById('regState').value,
+        zipCode: document.getElementById('regZip').value,
+        password: btoa(pw1) // Simple base64 encoding for prototype purposes
+    };
+
+    // Save to "Database"
+    users.push(newUser);
+    localStorage.setItem('breathlink_users', JSON.stringify(users));
+
+    showNotification("Account created successfully! Please log in.", "success");
+    document.getElementById('formRegister').reset();
+    setTimeout(() => switchTab('login'), 1500);
+}
+
+// 2. READ (Login User)
+function loginUser(e) {
+    e.preventDefault();
+    const email = document.getElementById('loginEmail').value.toLowerCase();
+    const password = btoa(document.getElementById('loginPassword').value);
+
+    const users = JSON.parse(localStorage.getItem('breathlink_users'));
+    const user = users.find(u => u.email === email && u.password === password);
+
+    if (user) {
+        // Remove password from session object
+        const sessionUser = { ...user };
+        delete sessionUser.password;
+        
+        // Save session
+        localStorage.setItem('breathlink_session', JSON.stringify(sessionUser));
+        
+        showNotification("Login successful! Redirecting...", "success");
+        setTimeout(() => checkSession(), 1000);
+    } else {
+        showNotification("Invalid email or password.", "error");
+    }
+}
+
+// 3. DELETE (Logout & Delete Account)
+function logoutUser() {
+    localStorage.removeItem('breathlink_session');
+    checkSession();
+}
+
+function deleteAccount() {
+    if(confirm("Are you sure you want to permanently delete your account and history?")) {
+        const currentUser = JSON.parse(localStorage.getItem('breathlink_session'));
+        let users = JSON.parse(localStorage.getItem('breathlink_users'));
+        
+        // Filter out the current user
+        users = users.filter(u => u.id !== currentUser.id);
+        
+        // Save updated DB and clear session
+        localStorage.setItem('breathlink_users', JSON.stringify(users));
+        localStorage.removeItem('breathlink_session');
+        
+        alert("Account deleted successfully.");
+        checkSession();
+    }
+}
+
+// Run on page load
+window.onload = checkSession;
+</script>
+
+</body>
+</html>
