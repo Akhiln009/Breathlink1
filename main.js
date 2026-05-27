@@ -3,17 +3,35 @@
 // ============================================
 
 const supportFAQ = {
-    "purpose": "The purpose of Global Breath-Link is to democratize lung health by providing a free triage-to-treatment ecosystem. It uses interactive simulation tools to raise awareness about environmental or genetic risks, features an AI Acoustic Biopsy tool for screening, and connects users to personalized clinical care paths.",
-    "biopsy": "The AI Acoustic Biopsy tool utilizes real-time FFT audio extraction and KNN biomarkers to process cough recordings for risk analysis.",
-    "acoustic": "Our Acoustic Biopsy analyzes key respiratory frequencies from smartphone mic inputs to help track digital biomarkers.",
-    "radon": "Radon is an invisible, odorless radioactive gas. The Awareness Simulator maps out its alpha decay pathways in lung tissue.",
-    "simulator": "The Awareness Simulator allows you to adjust exposure tiers (low, medium, high) to inspect the structural cellular impacts of toxins.",
-    "treatment": "The Care Pathway section connects risk metrics with actual clinical steps like Spirometry and uses the Google Maps API to source care nodes.",
-    "maps": "We integrate the Google Maps API in the Treatment tab to assist users in locating physical diagnostic facilities nearby.",
-    "certificate": "You can download your certification of competency after completing all exposure levels in a pathology simulation and passing its 10-question final exam.",
-    "quiz": "The exam requires a score of 8/10 to unlock your downloadable certificate badge. Hints are provided under each prompt if you get stuck!",
-    "hello": "Hi there! Welcome to Breath-Link support. How can I help you navigate our simulation or triage portals?",
-    "help": "I can help explain our AI diagnostic models, simulation pathways, certificate requirements, or map tools. What can I answer for you?"
+    // 1-5: General Platform & Purpose
+    "purpose": "The purpose of Global Breath-Link is to democratize lung health by providing a free triage-to-treatment ecosystem. It uses interactive simulation tools to raise awareness, features an AI Acoustic Biopsy tool for screening, and connects users to care paths.",
+    "how it work": "The site works in 3 stages: 1. Awareness (learning via lung pathology simulation), 2. Detection (submitting or checking cough audio biomarkers), and 3. Treatment (finding local diagnostic testing facilities).",
+    "cost": "Global Breath-Link is completely free! Our mission is to provide open-access lung health pre-screening and education to everyone worldwide.",
+    "medical advice": "No, this platform does not provide official medical advice. It is a pre-screening triage tool intended for educational and tracking purposes. Always consult a doctor for official clinical decisions.",
+    "language": "You can change languages using the custom translation dropdown menu at the top right of the navigation bar.",
+
+    // 6-10: Section 1 — Awareness Simulator & Pathology
+    "simulator": "The Awareness Simulator allows you to adjust exposure tiers (low, medium, high) to inspect the structural cellular impacts of toxins like radon, soot, or industrial particles.",
+    "radon": "Radon is an invisible, odorless radioactive gas found in soil. The Awareness Simulator maps out its alpha decay pathways and how it doubles lung risks over chronic exposure.",
+    "cookfire": "Biomass and cookfire smoke release microscopic PM 2.5 soot particles that bypass mucus barriers, clogging deep alveoli air sacs and causing severe oxidative stress/COPD.",
+    "genetics": "Our genetic module covers Alpha-1 Antitrypsin (AAT) Deficiency, where an inherited liver protein error allows unchecked destructive enzymes to digest lung wall elastin fibers.",
+    "pollution": "Urban air pollution sections simulate how ground-level Ozone (O3) and Nitrogen Dioxide (NO2) chemically scald the breathing epithelium, causing hyper-reactive airways (RADS).",
+
+    // 11-14: Section 2 & 3 — AI Biopsy & Care Pathways
+    "biopsy": "The AI Acoustic Biopsy tool utilizes real-time Fast Fourier Transform (FFT) audio extraction and K-Nearest Neighbors (KNN) biomarker analysis to screen cough audio recordings.",
+    "microphone": "If your microphone isn't recording, make sure you have granted the browser permission to access it, check your device system settings, or ensure other tabs aren't locking the hardware.",
+    "treatment": "The Care Pathway section connects risk metrics with actual clinical steps like Spirometry or Low-Dose CT scans, and maps out actual medical centers.",
+    "maps": "We integrate the Google Maps API in the Treatment tab to assist users in locating physical diagnostic facilities and respiratory care nodes nearby.",
+
+    // 15-17: Exams & Certification Badges
+    "certificate": "You can download your certification of competency after completing all exposure levels in an Awareness pathology module and passing its 10-question final exam.",
+    "quiz": "The simulation exam requires a score of 8/10 to unlock your downloadable certificate badge. Helpful hints are provided under each prompt if you get stuck!",
+    "download": "If your certificate won't download locally, make sure you are running the project through a server tool like VS Code's 'Live Server' extension to bypass canvas security blocks.",
+
+    // 18-20: Kids Zone & Specifics
+    "kids": "The Kids Zone is a colorful space designed for ages 6-13, featuring animated lungs, simple lung facts, a gentle breathing pacing ball, and an automated 6-question quiz badge system.",
+    "breath": "Our interactive belly breathing modules track your completed pacing intervals to build respiratory strength, a technique highly recommended by doctors.",
+    "contact": "For administrative questions, project collaborations, or direct support, you can reach out to our team at contact@breathlink.org."
 };
 
 // Target DOM nodes matching index.html
@@ -49,7 +67,6 @@ function postChatMessage() {
 
     setTimeout(() => {
         const reply = lookupAnswer(query);
-        // Pass true if the reply contains an HTML link string
         const isHTML = reply.includes('href=');
         createBubble(reply, 'bot-message', isHTML);
     }, 450);
@@ -60,13 +77,13 @@ function createBubble(text, systemClass, isHTML = false) {
     bubble.classList.add('message', systemClass);
     
     if (isHTML) {
-        bubble.innerHTML = text; // Safely renders our fallback email link
+        bubble.innerHTML = text; // Safely renders the fallback email link
     } else {
         bubble.textContent = text; // Keeps regular messages clean and secure
     }
     
     widgetDisplay.appendChild(bubble);
-    widgetDisplay.scrollTop = widgetDisplay.scrollHeight; // Keep view auto-scrolled
+    widgetDisplay.scrollTop = widgetDisplay.scrollHeight; // Auto-scrolls to the newest message
 }
 
 function lookupAnswer(inputRaw) {
@@ -79,8 +96,8 @@ function lookupAnswer(inputRaw) {
         }
     }
     
-    // Fallback text with a direct, clickable mailto address link
-    return "I'm not fully sure how to answer that question. Try asking about the 'site purpose', 'Acoustic Biopsy', 'Simulator levels', or 'Quiz rules'. For further assistance, feel free to email us directly at <a href='mailto:contact@breathlink.org' style='color: #27ae60; font-weight: bold; text-decoration: underline;'>contact@breathlink.org</a>.";
+    // Comprehensive fallback if keyword isn't met
+    return "I'm not fully sure about that issue. Try asking about the 'site purpose', 'AI biopsy options', 'microphone troubleshooting', 'simulator tiers', or 'download blocks'. For further assistance, feel free to email us directly at <a href='mailto:contact@breathlink.org' style='color: #27ae60; font-weight: bold; text-decoration: underline;'>contact@breathlink.org</a>.";
 }
 
 // UI Event Triggers
