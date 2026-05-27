@@ -42,15 +42,13 @@ body::before {
   z-index: 0;
 }
 
-/* ── NAV ── */
+/* ── SPLIT TOP NAVIGATION HEADER ── */
 .nav {
   background: white;
-  padding: 12px 24px;
+  padding: 16px 32px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 10px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.08);
   position: relative;
   z-index: 10;
@@ -58,26 +56,31 @@ body::before {
 
 .nav-logo {
   font-family: 'Fredoka One', cursive;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   color: var(--blue);
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.nav-links { display: flex; gap: 8px; flex-wrap: wrap; }
-.nav-links a {
+.exit-kids-btn {
+  font-family: 'Fredoka One', cursive;
   text-decoration: none;
-  padding: 7px 14px;
-  border-radius: 20px;
-  font-size: 0.85rem;
+  padding: 10px 22px;
+  border-radius: 30px;
+  font-size: 1rem;
   font-weight: 700;
-  color: #888;
-  transition: all 0.2s;
-  border: 2px solid transparent;
+  color: var(--white);
+  background: var(--red);
+  box-shadow: 0 4px 12px rgba(255,107,107,0.3);
+  transition: all 0.2s ease;
 }
-.nav-links a:hover { color: var(--blue); border-color: var(--blue); }
-.nav-links a.active { background: var(--blue); color: white; }
+
+.exit-kids-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255,107,107,0.45);
+  background: #ff5252;
+}
 
 /* ── HERO ── */
 .hero {
@@ -517,19 +520,27 @@ body::before {
   0%   { opacity: 1; transform: translateY(0) scale(1); }
   100% { opacity: 0; transform: translateY(-120px) scale(0.5); }
 }
+
+/* ── INTERACTIVE PHONE ADAPTATION ── */
+@media (max-width: 480px) {
+  .nav {
+    flex-direction: column;
+    padding: 16px;
+    gap: 12px;
+  }
+  .exit-kids-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
+<!-- NAVIGATION BAR -->
 <div class="nav">
-  <div class="nav-logo">🫁 BreathLink <span style="font-size:0.8rem;color:#aaa;font-family:'Nunito',sans-serif;font-weight:700;">Kids</span></div>
-  <div class="nav-links">
-    <a href="index.html">🏠 Home</a>
-    <a href="awareness.html">🔬 Simulator</a>
-    <a href="detection.html">🎙️ AI Biopsy</a>
-    <a href="kids.html" class="active">🌈 Kids Zone</a>
-  </div>
+  <div class="nav-logo">🫁 Kids Zone 🌈</div>
+  <a href="index.html" class="exit-kids-btn">Exit Kids Zone ↩</a>
 </div>
 
 <!-- HERO -->
@@ -870,7 +881,7 @@ function showQuizResult() {
 
   const pct = quizScore / questions.length;
   let emoji, title, msg;
-  if (pct === 1)        { emoji='🏆'; title='PERFECT SCORE!';     msg='You are a Lung Health GENIUS! Share what you learned with your friends!'; }
+  if (pct === 1)         { emoji='🏆'; title='PERFECT SCORE!';     msg='You are a Lung Health GENIUS! Share what you learned with your friends!'; }
   else if (pct >= 0.67) { emoji='🌟'; title='Amazing Job!';        msg='You really know your lungs! Try again to get a perfect score!'; }
   else if (pct >= 0.5)  { emoji='👍'; title='Good Work!';          msg='Not bad! Read the fun facts again and try to beat your score!'; }
   else                  { emoji='📚'; title='Keep Learning!';      msg='No worries! Read through the lung facts above and try again!'; }
