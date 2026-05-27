@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -142,6 +146,20 @@
     <a href="awareness.html"     style="color:#555; text-decoration:none; padding:8px 16px; border-radius:6px; font-size:0.9rem; font-weight: bold; transition: 0.2s;" onmouseover="this.style.background='#eee'" onmouseout="this.style.background='transparent'">🫁 Awareness Simulator</a>
     <a href="detection.html" style="color:var(--primary); text-decoration:none; padding:8px 16px; border-radius:6px; font-size:0.9rem; font-weight: bold; background:#e8f4fd; border:1px solid #b8daff;">🔬 AI Acoustic Biopsy</a>
     <a href="treatment.html" style="color:#555; text-decoration:none; padding:8px 16px; border-radius:6px; font-size:0.9rem; font-weight: bold; transition: 0.2s;" onmouseover="this.style.background='#eee'" onmouseout="this.style.background='transparent'">💊 Treatment Plan</a>
+<div class="custom-translator">
+    <select id="custom-language-select" onchange="triggerGoogleTranslate(this.value)">
+        <option value="en">EN - English</option>
+        <option value="es">ES - Español</option>
+        <option value="zh-CN">ZH - 中文</option>
+        <option value="hi">HI - हिन्दी</option>
+        <option value="ar">AR - العربية</option>
+        <option value="pt">PT - Português</option>
+        <option value="bn">BN - বাংলা</option>
+        <option value="ru">RU - Русский</option>
+        <option value="fr">FR - Français</option>
+        <option value="de">DE - Deutsch</option>
+    </select>
+</div>
 </div>
 
 <div class="container" id="mainContent">

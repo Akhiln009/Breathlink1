@@ -22,8 +22,22 @@
     <a href="awareness.html">🫁 Awareness Simulator</a>
     <a href="detection.html">🔬 AI Acoustic Biopsy</a>
     <a href="treatment.html">💊 Treatment Plan</a>
-    <div id="google_translate_element" style="display:inline-block; margin-left:15px; border-radius:6px; overflow:hidden;"></div>
+    <div class="custom-translator">
+    <select id="custom-language-select" onchange="triggerGoogleTranslate(this.value)">
+        <option value="en">EN - English</option>
+        <option value="es">ES - Español</option>
+        <option value="zh-CN">ZH - 中文</option>
+        <option value="hi">HI - हिन्दी</option>
+        <option value="ar">AR - العربية</option>
+        <option value="pt">PT - Português</option>
+        <option value="bn">BN - বাংলা</option>
+        <option value="ru">RU - Русский</option>
+        <option value="fr">FR - Français</option>
+        <option value="de">DE - Deutsch</option>
+    </select>
 </div>
+</div>
+<!-- 1. Your Custom Clean Dropdown -->
 
 <div class="container" id="mainContent">
     <section>
@@ -131,15 +145,31 @@
     </div>
 
 </footer>
-<!-- Google Translate Widget Configured for 10 Popular Languages -->
+
+
+
+<!-- 2. The Hidden Google Translate Engine -->
+<div id="google_translate_element" style="display:none;"></div>
+
+<!-- 3. The Scripts -->
 <script type="text/javascript">
+// Initialize the hidden Google widget
 function googleTranslateElementInit() {
-  new google.translate.TranslateElement({
-    pageLanguage: 'en',
-    // Restricts the dropdown menu to exactly these 10 language codes
-    includedLanguages: 'en,es,zh-CN,hi,ar,pt,bn,ru,fr,de', 
-    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-  }, 'google_translate_element');
+    new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: 'en,es,zh-CN,hi,ar,pt,bn,ru,fr,de',
+        autoDisplay: false
+    }, 'google_translate_element');
+}
+
+// Function to pass your custom dropdown choice to the hidden Google dropdown
+function triggerGoogleTranslate(langCode) {
+    const googleSelect = document.querySelector('.goog-te-combo');
+    if (googleSelect) {
+        googleSelect.value = langCode;
+        // This forces Google to register the change and translate the page
+        googleSelect.dispatchEvent(new Event('change')); 
+    }
 }
 </script>
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
