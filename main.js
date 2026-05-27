@@ -3,6 +3,7 @@
 // ============================================
 
 const supportFAQ = {
+    "purpose": "The purpose of Global Breath-Link is to democratize lung health by providing a free triage-to-treatment ecosystem. It uses interactive simulation tools to raise awareness about environmental or genetic risks, features an AI Acoustic Biopsy tool for screening, and connects users to personalized clinical care paths.",
     "biopsy": "The AI Acoustic Biopsy tool utilizes real-time FFT audio extraction and KNN biomarkers to process cough recordings for risk analysis.",
     "acoustic": "Our Acoustic Biopsy analyzes key respiratory frequencies from smartphone mic inputs to help track digital biomarkers.",
     "radon": "Radon is an invisible, odorless radioactive gas. The Awareness Simulator maps out its alpha decay pathways in lung tissue.",
@@ -78,8 +79,8 @@ function lookupAnswer(inputRaw) {
         }
     }
     
-    // Updated fallback text with a direct, clickable mailto address link
-    return "I'm not fully sure how to answer that question. Try asking about the 'Acoustic Biopsy', 'Simulator levels', or 'Quiz rules'. For further assistance, feel free to email us directly at <a href='mailto:contact@breathlink.org' style='color: #27ae60; font-weight: bold; text-decoration: underline;'>contact@breathlink.org</a>.";
+    // Fallback text with a direct, clickable mailto address link
+    return "I'm not fully sure how to answer that question. Try asking about the 'site purpose', 'Acoustic Biopsy', 'Simulator levels', or 'Quiz rules'. For further assistance, feel free to email us directly at <a href='mailto:contact@breathlink.org' style='color: #27ae60; font-weight: bold; text-decoration: underline;'>contact@breathlink.org</a>.";
 }
 
 // UI Event Triggers
