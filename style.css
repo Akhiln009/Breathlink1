@@ -1,47 +1,116 @@
-:root{
-    --primary:#1a4a7c;
-    --secondary:#27ae60;
-    --bg:#fdfdfd;
-    --accent:#f39c12;
-    --dark:#0a0a0a;
-    --danger:#e74c3c;
+/* ========================================== */
+/* ── VARIABLE DEFINITIONS & BASE ROOT ────── */
+/* ========================================== */
+:root {
+    --primary: #1a4a7c;
+    --secondary: #27ae60;
+    --bg: #f5f8fa;
+    --accent: #f39c12;
+    --dark: #0a0a0a;
+    --danger: #e74c3c;
+    --glass-bg: rgba(255, 255, 255, 0.8);
+    --glass-border: rgba(26, 74, 124, 0.08);
 }
 
-body{ font-family:'Segoe UI',Tahoma,sans-serif; line-height:1.6; margin:0; background:var(--bg); color:#333; }
-.container{ max-width:1000px; margin:auto; padding:20px; }
+body { 
+    font-family: 'Segoe UI', Tahoma, sans-serif; 
+    line-height: 1.6; 
+    margin: 0; 
+    background: var(--bg); 
+    color: #333; 
+    top: 0px !important; 
+    overflow-x: hidden;
+}
 
+.container { 
+    max-width: 1000px; 
+    margin: auto; 
+    padding: 20px; 
+}
+
+/* ── ULTIMATE CANVA HEADER DESIGN ── */
 header { 
-    background: var(--primary); 
+    position: relative;
+    background: linear-gradient(135deg, #102a45 0%, #1a4a7c 100%); 
     color: #fff; 
-    padding: 30px 20px; /* Reduced from 60px to 30px to make the header shorter */
+    padding: 50px 20px; 
     text-align: center; 
+    overflow: hidden;
+}
+
+#headerParticleCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.header-foreground {
+    position: relative;
+    z-index: 2;
 }
 
 header h1 { 
     margin: 0; 
-    font-size: 2.2rem; /* Slightly smaller text to fit the new height */
+    font-size: 2.5rem; 
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    text-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
-header p {
-    margin-bottom: 0; /* Removes extra space below the paragraph */
-}
-section{ padding:40px 0; border-bottom:1px solid #ddd; }
 
-/* ── GLOBAL NAV BAR ── */
-/* ── GLOBAL NAV BAR ── */
+header p {
+    margin-top: 8px;
+    margin-bottom: 0; 
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+section { 
+    padding: 40px 0; 
+    border-bottom: 1px solid #ddd; 
+}
+
+/* ========================================== */
+/* ── GLOBAL WEB SCROLLBAR CUSTOMIZATION ──── */
+/* ========================================== */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary);
+}
+
+/* ========================================== */
+/* ── GLOBAL NAVIGATION BAR STRUCTURE ─────── */
+/* ========================================== */
 .top-nav {
-    background: #f8f9fa;
-    border-bottom: 1px solid #ddd;
-    padding: 15px 20px;
+    background: rgba(248, 249, 25fa, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #dee2e6;
+    padding: 15px 180px 15px 20px; 
     display: flex;
     align-items: center;
-    position: relative; /* This allows us to absolute position the dropdown inside the nav */
-    justify-content: center; /* This keeps your links perfectly centered! */
+    position: relative; 
+    justify-content: center; 
     gap: 15px;
     flex-wrap: wrap;
+    z-index: 100;
 }
 
 .top-nav a {
-    color: #555;
+    color: #4a5568;
     text-decoration: none;
     padding: 8px 16px;
     border-radius: 6px;
@@ -51,7 +120,8 @@ section{ padding:40px 0; border-bottom:1px solid #ddd; }
 }
 
 .top-nav a:hover {
-    background: #eee;
+    background: #e2e8f0;
+    color: var(--primary);
 }
 
 .top-nav a.active {
@@ -59,142 +129,377 @@ section{ padding:40px 0; border-bottom:1px solid #ddd; }
     background: #e8f4fd;
     border: 1px solid #b8daff;
 }
-/* VIEWING AREA */
-.grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:20px; }
 
-/* UPDATED: Added Flexbox properties so inner elements can be pushed to bottom */
+/* ── KIDS NAV CAPSULE PILL PIECE ── */
+.kids-nav-btn {
+    background: linear-gradient(135deg, #ff9a3c, #ff6b6b) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 25px !important; 
+    padding: 8px 22px !important;
+    font-weight: 900 !important;
+    letter-spacing: 0.05em;
+    margin-left: 20px; 
+    box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
+    text-transform: uppercase;
+    font-size: 0.85rem !important;
+}
+
+.kids-nav-btn:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 15px rgba(255, 107, 107, 0.5) !important;
+}
+
+/* ========================================== */
+/* ── NAVIGATION GEAR SETTINGS DROP-DOWN ──── */
+/* ========================================== */
+.settings-container {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+}
+
+.settings-gear-btn {
+    background: #ffffff;
+    color: var(--primary);
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 8px 14px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+}
+
+.settings-gear-btn:hover {
+    border-color: var(--secondary);
+    background-color: #f8f9fa;
+}
+
+.settings-dropdown {
+    display: none; 
+    position: absolute;
+    right: 0;
+    top: 42px;
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 14px;
+    width: 200px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    flex-direction: column;
+    gap: 6px;
+}
+
+.settings-dropdown label {
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #666;
+    text-transform: uppercase;
+}
+
+.theme-toggle-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 4px;
+    transition: background 0.2s;
+}
+
+.theme-toggle-btn:hover {
+    background: var(--secondary);
+}
+
+/* ========================================== */
+/* ── ULTIMATE GLASSMORPHISM PORTAL CARDS ─── */
+/* ========================================== */
+.grid { 
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+}
+
 .card { 
-    background:#fff; 
-    padding:25px; 
-    border-radius:10px; 
-    box-shadow:0 2px 10px rgba(0,0,0,0.1); 
-    border-top:5px solid var(--secondary); 
+    background: var(--glass-bg); 
+    padding: 30px; 
+    border-radius: 16px; 
+    border: 1px solid var(--glass-border);
+    border-top: 5px solid var(--secondary); 
     display: flex; 
     flex-direction: column; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    backdrop-filter: blur(8px);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease, border-color 0.3s ease !important;
 }
 
-.tag-cloud{ display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
-.tag{ background:#e8f4fd; color:#1a4a7c; padding:6px 12px; border-radius:15px; font-size:0.85rem; font-weight:bold; cursor:pointer; transition: 0.2s; border:1px solid rgba(26,74,124,0.1); display: inline-block; }
-.tag:hover{ background:#1a4a7c; color:white; transform:translateY(-2px); box-shadow:0 4px 10px rgba(26,74,124,0.2); }
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 35px rgba(26, 74, 124, 0.12) !important;
+    border-color: rgba(26, 74, 124, 0.2);
+}
 
-/* SIMULATOR STYLES - LIGHT THEME */
-#simulator{ display:none; background:#f8f9fa; color:#333; padding:40px 20px; text-align:center; border-top: 1px solid #eee;}
-.viewer { max-width:300px; margin:10px auto; background: #0a0a0a; border-radius: 20px; position: relative; border: 4px solid #fff; box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
+/* Metric Metadata Tags Inside Cards */
+.card-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #718096;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 12px;
+}
+
+.card h3 {
+    color: var(--primary);
+    font-size: 1.35rem;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.card-action-bar {
+    margin-top: auto; 
+    text-align: center; 
+    padding-top: 25px;
+}
+
+.treatment-card {
+    grid-column: span 2;
+    max-width: 550px;
+    justify-self: center;
+}
+
+.tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.tag { background: #e8f4fd; color: #1a4a7c; padding: 7px 16px; border-radius: 30px; font-size: 0.85rem; font-weight: bold; cursor: pointer; transition: 0.2s; border: 1px solid rgba(26,74,124,0.1); display: inline-block; }
+.tag:hover { background: var(--primary); color: white; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(26,74,124,0.15); }
+
+/* ========================================== */
+/* ── AWARENESS SIMULATOR WORKFLOW AREA ───── */
+/* ========================================== */
+#simulator { display: none; background: #f8f9fa; color: #333; padding: 40px 20px; text-align: center; border-top: 1px solid #eee;}
+.viewer { max-width: 300px; margin: 10px auto; background: #0a0a0a; border-radius: 20px; position: relative; border: 4px solid #fff; box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
 canvas { display: block; max-width: 100%; height: auto; }
 
-.healthbar{ width:280px; height:16px; background:#ddd; margin:20px auto; border-radius:10px; overflow:hidden; box-shadow: inset 0 2px 5px rgba(0,0,0,0.1); }
-.healthfill{ height:100%; width:100%; background:#27ae60; transition: 1s; }
+.healthbar { width: 280px; height: 16px; background: #ddd; margin: 20px auto; border-radius: 10px; overflow: hidden; box-shadow: inset 0 2px 5px rgba(0,0,0,0.1); }
+.healthfill { height: 100%; width: 100%; background: #27ae60; transition: 1s; }
 
-.controls button{ padding:10px 16px; margin:6px; border:1px solid #ccc; border-radius:6px; background:#fff; color:#555; cursor:pointer; font-weight:bold; transition:0.2s; box-shadow:0 2px 5px rgba(0,0,0,0.02); }
-.controls button:hover { border-color:var(--primary); color:var(--primary); background:#e8f4fd; }
-.controls button.active { background: var(--secondary); border-color:var(--secondary); color:white; box-shadow:0 4px 10px rgba(39,174,96,0.3); }
+.controls button { padding: 10px 16px; margin: 6px; border: 1px solid #ccc; border-radius: 6px; background: #fff; color: #555; cursor: pointer; font-weight: bold; transition: 0.2s; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+.controls button:hover { border-color: var(--primary); color: var(--primary); background: #e8f4fd; }
+.controls button.active { background: var(--secondary); border-color: var(--secondary); color: white; box-shadow: 0 4px 10px rgba(39,174,96,0.3); }
 
-/* DETAILED INFO PANEL (CLINICAL ANALYSIS) - LIGHT THEME */
-.edu-panel {
-    max-width: 700px; margin: 30px auto; background: #fff; padding: 30px;
-    border-radius: 12px; text-align: left; border: 1px solid #eee;
-    border-top: 4px solid var(--secondary);
-    max-height: 500px; overflow-y: auto;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-}
+/* ── PATHOLOGY CLINICAL PANEL PANEL ── */
+.edu-panel { max-width: 700px; margin: 30px auto; background: #fff; padding: 30px; border-radius: 12px; text-align: left; border: 1px solid #eee; border-top: 4px solid var(--secondary); max-height: 500px; overflow-y: auto; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+.unlock-msg { color: #856404; background: #fff3cd; border: 1px solid #ffeeba; font-weight: bold; margin: 15px auto; padding: 12px 20px; border-radius: 8px; font-size: 0.9rem; display: inline-block; }
+.quizBtn { display: none; background: var(--secondary); padding: 15px 30px; border: none; border-radius: 8px; color: white; font-weight: bold; cursor: pointer; margin-top: 20px; box-shadow: 0 4px 15px rgba(39,174,96,0.3); transition: 0.2s; font-size: 1.05rem;}
+.quizBtn:hover { background: #22c774; transform: translateY(-2px); }
 
-.unlock-msg { color: #856404; background:#fff3cd; border:1px solid #ffeeba; font-weight: bold; margin: 15px auto; padding: 12px 20px; border-radius: 8px; font-size: 0.9rem; display: inline-block; }
-.quizBtn{ display:none; background:var(--secondary); padding:15px 30px; border:none; border-radius:8px; color:white; font-weight:bold; cursor:pointer; margin-top:20px; box-shadow:0 4px 15px rgba(39,174,96,0.3); transition:0.2s; font-size: 1.05rem;}
-.quizBtn:hover{ background:#22c774; transform:translateY(-2px); }
-
-/* QUIZ MODAL - LIGHT THEME */
-#quizModal {
-    display:none; position:fixed; top:0; left:0; width:100%; height:100%;
-    background:rgba(255,255,255,0.85); z-index:2000; justify-content:center; align-items:center;
-    padding: 20px; backdrop-filter: blur(5px);
-}
-.quiz-content {
-    background:#fdfdfd; padding:30px; border-radius:8px; max-width:600px; width:90%;
-    color:#444; position: relative; display: flex; flex-direction: column; max-height: 90vh;
-    border:1px solid #eee; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    border-top: 4px solid var(--secondary);
-}
+/* ========================================== */
+/* ── EXAM ASSESSMENT MODAL FRAME ARCHITECTURE */
+/* ========================================== */
+#quizModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.85); z-index: 2000; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(5px); }
+.quiz-content { background: #fdfdfd; padding: 30px; border-radius: 8px; max-width: 600px; width: 90%; color: #444; position: relative; display: flex; flex-direction: column; max-height: 90vh; border: 1px solid #eee; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 4px solid var(--secondary); }
 #quizHeader { color: var(--primary); margin-top: 0; padding-bottom: 15px; border-bottom: 2px solid #f0f0f0; font-size: 1.5rem;}
 #quizBody { overflow-y: auto; flex-grow: 1; padding-right: 15px; margin: 20px 0; }
 .quiz-q { margin-bottom: 25px; border-bottom: 1px solid #f9f9f9; padding-bottom: 15px; }
 .quiz-q p { font-weight: bold; color: #333; margin-bottom: 10px; }
 .quiz-q label { color: #555; }
+#quizResults { display: none; padding: 15px; border-radius: 8px; font-weight: bold; margin-bottom: 15px; text-align: center; background: #e8f4fd; color: var(--primary); border: 1px solid #b8daff;}
 
-#quizResults { display:none; padding:15px; border-radius:8px; font-weight:bold; margin-bottom:15px; text-align:center; background:#e8f4fd; color:var(--primary); border:1px solid #b8daff;}
-
-/* NAME INPUT SECTION */
-#nameSection {
-    display: none;
-    background: #fdfdfd;
-    border: 1px solid #eee;
-    border-radius: 8px;
-    padding: 20px;
-    margin: 15px 0;
-    text-align: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-}
+/* ── DOCUMENT BADGE PROMPTS AREA ── */
+#nameSection { display: none; background: #fdfdfd; border: 1px solid #eee; border-radius: 8px; padding: 20px; margin: 15px 0; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
 #nameSection h3 { color: var(--primary); margin: 0 0 8px 0; font-size: 1.1rem; }
 #nameSection p { color: #666; margin: 0 0 15px 0; font-size: 0.9rem; }
 .name-inputs { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
-.name-inputs input {
-    background:#fff; border:1px solid #ccc; border-radius:6px; color:#333; padding:12px 14px; font-size:0.95rem;
-    outline:none; transition:border-color 0.2s; box-shadow: inset 0 1px 3px rgba(0,0,0,0.05); font-family:'Segoe UI',Tahoma,sans-serif;
-}
-.name-inputs input:focus { border-color:var(--secondary); box-shadow: 0 0 5px rgba(39,174,96,0.3); }
+.name-inputs input { background: #fff; border: 1px solid #ccc; border-radius: 6px; color: #333; padding: 12px 14px; font-size: 0.95rem; outline: none; transition: border-color 0.2s; box-shadow: inset 0 1px 3px rgba(0,0,0,0.05); font-family: 'Segoe UI', Tahoma, sans-serif; }
+.name-inputs input:focus { border-color: var(--secondary); box-shadow: 0 0 5px rgba(39,174,96,0.3); }
 .name-inputs input.input-error { border-color: var(--danger); animation: shake 0.3s ease; }
-
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    75% { transform: translateX(5px); }
-}
-
+@keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
 #nameError { color: var(--danger); font-size: 0.85rem; margin-top: 8px; display: none; }
 
-.cert-btn { 
-    display:none; background:var(--primary); color:white; padding:14px; 
-    border:none; border-radius:8px; cursor:pointer; font-weight:bold; 
-    width:100%; margin-top:10px; transition: 0.2s; font-size: 1rem;
-}
-.cert-btn:hover { background:#153a63; transform:translateY(-2px); box-shadow:0 4px 15px rgba(26,74,124,0.3); }
-
-.close-quiz { 
-    background:none; border:none; color:#888; cursor:pointer; 
-    text-align:center; width:100%; margin-top: 15px; 
-    font-size: 0.9rem; font-weight: 500;
-}
+.cert-btn { display: none; background: var(--primary); color: white; padding: 14px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; transition: 0.2s; font-size: 1rem;}
+.cert-btn:hover { background: #153a63; transform: translateY(-2px); box-shadow: 0 4px 15px rgba(26,74,124,0.3); }
+.close-quiz { background: none; border: none; color: #888; cursor: pointer; text-align: center; width: 100%; margin-top: 15px; font-size: 0.9rem; font-weight: 500;}
 .close-quiz:hover { color: #555; }
 
-footer{ text-align:center; padding:40px; background:#222; color:#eee; }
-
-/* ===== GRID FIX (SAFE) ===== */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+/* ========================================== */
+/* ── INTERACTIVE FAQ CHATBOT COMPONENT UI ── */
+/* ========================================== */
+#chat-toggle-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    padding: 12px 24px;
+    background-color: var(--secondary);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    z-index: 3000;
 }
 
-/* ===== CARD ALIGNMENT FIX ===== */
-.treatment-card {
-    grid-column: span 2;
-    max-width: 520px;
-    justify-self: center;
+#chat-container {
+    position: fixed;
+    bottom: 85px;
+    right: 25px;
+    width: 340px;
+    height: 450px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    font-family: inherit;
+    z-index: 3000;
+    border: 1px solid rgba(0,0,0,0.1);
 }
 
-/* ===== MOBILE FIX ===== */
-@media (max-width: 700px) {
-    .grid {
-        grid-template-columns: 1fr;
-    }
-
-    .treatment-card {
-        grid-column: span 1;
-        max-width: 100%;
-    }
-    
+#chat-header {
+    background-color: var(--primary);
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
 }
 
-/* Style the actual dropdown menu */
+#close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    line-height: 1;
+}
+
+#chat-box {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    background-color: #f4f7f6;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.message {
+    padding: 10px 14px;
+    border-radius: 16px;
+    max-width: 80%;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.bot-message {
+    background-color: #e3ebf3;
+    color: #1e3a5f;
+    align-self: flex-start;
+    border-bottom-left-radius: 4px;
+}
+
+.user-message {
+    background-color: var(--primary);
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+}
+
+#chat-input-area {
+    display: flex;
+    padding: 12px;
+    border-top: 1px solid #eee;
+    background: white;
+}
+
+#user-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+}
+
+#send-btn {
+    background-color: var(--secondary);
+    color: white;
+    border: none;
+    padding: 0 16px;
+    margin-left: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* ── CHAT ALERT NOTIFICATION BUBBLE ── */
+#chat-alert-bubble {
+    position: fixed;
+    bottom: 85px;
+    right: 25px;
+    background: #1a4a7c;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    display: none;
+    z-index: 2900;
+    animation: bubblePopEffect 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+#chat-alert-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    right: 24px;
+    border-width: 6px 6px 0;
+    border-style: solid;
+    border-color: #1a4a7c transparent;
+    display: block;
+    width: 0;
+}
+
+@keyframes bubblePopEffect {
+    from { opacity: 0; transform: translateY(15px) scale(0.8); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ========================================== */
+/* ── CORE FOOTER & TRANSLATION OVERRIDES ──── */
+/* ========================================== */
+footer { 
+    text-align: center; 
+    padding: 40px; 
+    background: #060e1a; 
+    color: #eee; 
+}
+
+.goog-te-banner-frame.skiptranslate,
+.goog-tooltip,
+.goog-tooltip:hover {
+    display: none !important;
+}
+
+.goog-text-highlight {
+    background-color: transparent !important;
+    border: none !important; 
+    box-shadow: none !important;
+}
+
 .goog-te-gadget .goog-te-combo {
     color: #333;
     background: #fff;
@@ -212,207 +517,103 @@ footer{ text-align:center; padding:40px; background:#222; color:#eee; }
     border-color: var(--primary);
 }
 
-/* Hide the annoying Google Translate top banner */
-.goog-te-banner-frame.skiptranslate {
-    display: none !important;
+/* ========================================== */
+/* ── DARK THEME LAYOUT VARIABLE OVERRIDES ── */
+/* ========================================== */
+body.dark-theme-mode {
+    background-color: #060b19 !important;
+    color: #e2e8f0 !important;
+    --glass-bg: rgba(20, 29, 54, 0.85);
+    --glass-border: rgba(255, 255, 255, 0.08);
 }
 
-/* Prevent Google from pushing the page down */
-body {
-    top: 0px !important; 
+body.dark-theme-mode .top-nav {
+    background-color: #111a30 !important;
+    border-color: #1e293b !important;
 }
 
-/* ── CUSTOM CLEAN TRANSLATOR LAYOUT ── */
-/* ── IN-NAV CUSTOM TRANSLATOR LAYOUT ── */
-.custom-translator {
-    margin-left: auto; /* This magical Flexbox rule pushes it to the far right edge! */
-    display: flex;
-    align-items: center;
+body.dark-theme-mode .top-nav a { 
+    color: #94a3b8; 
 }
 
-/* Style the clean dropdown */
-/* ── IN-NAV CUSTOM TRANSLATOR LAYOUT ── */
-.custom-translator {
-    position: absolute; /* This pulls it out of the flex flow */
-    right: 20px; /* Pins it to the right edge of the nav bar */
+body.dark-theme-mode .top-nav a:hover { 
+    background-color: #1e293b; 
+    color: #fff;
 }
 
-/* Style the clean dropdown */
-.custom-translator select {
-    padding: 8px 12px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    background: #fff;
-    color: #555;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    font-size: 0.9rem;
-    font-weight: bold;
-    cursor: pointer;
-    outline: none;
-    transition: all 0.2s ease;
+body.dark-theme-mode .card {
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4) !important;
+    border-top-color: var(--accent);
 }
 
-.custom-translator select:hover {
-    background: #f8f9fa;
-    border-color: var(--secondary);
+body.dark-theme-mode .card h3 { 
+    color: #ffffff; 
 }
 
-.custom-translator select:focus {
-    border-color: var(--secondary);
-    box-shadow: 0 0 5px rgba(39,174,96,0.3);
+body.dark-theme-mode #simulator {
+    background: #0d1527;
+    color: #fff;
+    border-top-color: #111a30;
 }
 
-/* The rest of the CSS styling from before remains exactly the same! */
-
-/* ── HIDE ALL GOOGLE TRANSLATE ARTIFACTS ── */
-
-/* 1. Hide the top banner frame completely */
-.goog-te-banner-frame.skiptranslate {
-    display: none !important;
+body.dark-theme-mode .edu-panel {
+    background: #111a30;
+    border-color: #1e293b;
 }
 
-/* 2. Prevent Google from adding padding to the top of the body */
-body {
-    top: 0px !important; 
+body.dark-theme-mode #quizModal {
+    background: rgba(6, 11, 25, 0.9);
 }
 
-/* 3. Hide the tooltip popup that appears when hovering over translated text */
-.goog-tooltip {
-    display: none !important;
-}
-.goog-tooltip:hover {
-    display: none !important;
+body.dark-theme-mode .quiz-content {
+    background: #111a30;
+    color: #fff;
+    border-color: #1e293b;
 }
 
-/* 4. Remove the weird yellow highlight background on translated text */
-.goog-text-highlight {
-    background-color: transparent !important;
-    border: none !important; 
-    box-shadow: none !important;
-}
-/* ── KIDS ZONE NAVIGATION BUTTON ── */
-.kids-nav-btn {
-    background: linear-gradient(135deg, #ff9a3c, #ff6b6b) !important;
-    color: white !important;
-    border: none !important;
-    border-radius: 25px !important; /* Creates a playful pill shape */
-    padding: 8px 22px !important;
-    font-weight: 900 !important;
-    letter-spacing: 0.05em;
-    margin-left: 20px; /* Creates a physical gap from the adult tools */
-    box-shadow: 0 4px 10px rgba(255, 107, 107, 0.3);
-    text-transform: uppercase;
-    font-size: 0.85rem !important;
+body.dark-theme-mode .quiz-q p {
+    color: #ffffff;
 }
 
-.kids-nav-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(255, 107, 107, 0.5);
-    background: linear-gradient(135deg, #ff6b6b, #ff9a3c) !important;
-    color: white !important;
+body.dark-theme-mode .quiz-q {
+    border-bottom-color: #1e293b;
 }
 
-/* Toggle Button */
-#chat-toggle-btn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    padding: 12px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    font-size: 16px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+body.dark-theme-mode .card-meta {
+    color: #94a3b8;
 }
 
-/* Chat Window */
-#chat-container {
-    position: fixed;
-    bottom: 80px;
-    right: 20px;
-    width: 320px;
-    height: 400px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    display: none;
-    flex-direction: column;
-    overflow: hidden;
-    font-family: Arial, sans-serif;
-}
-
-#chat-header {
-    background-color: #007bff;
-    color: white;
-    padding: 12px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: bold;
-}
-
-#close-btn {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 20px;
-    cursor: pointer;
-}
-
-#chat-box {
-    flex: 1;
-    padding: 15px;
-    overflow-y: auto;
-    background-color: #f8f9fa;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.message {
-    padding: 8px 12px;
-    border-radius: 15px;
-    max-width: 80%;
-    font-size: 14px;
-    line-height: 1.4;
-}
-
-.bot-message {
-    background-color: #e9ecef;
-    align-self: flex-start;
-    border-bottom-left-radius: 2px;
-}
-
-.user-message {
-    background-color: #007bff;
-    color: white;
-    align-self: flex-end;
-    border-bottom-right-radius: 2px;
-}
-
-#chat-input-area {
-    display: flex;
-    padding: 10px;
-    border-top: 1px solid #dee2e6;
-    background: white;
-}
-
-#user-input {
-    flex: 1;
-    padding: 8px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    outline: none;
-}
-
-#send-btn {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 0 15px;
-    margin-left: 5px;
-    border-radius: 4px;
-    cursor: pointer;
+/* ========================================== */
+/* ── RESPONSIVE RESPONSIVENESS OVERRIDES ── */
+/* ========================================== */
+@media (max-width: 700px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+    .treatment-card {
+        grid-column: span 1;
+        max-width: 100%;
+    }
+    .top-nav {
+        padding-right: 20px;
+        flex-direction: column;
+    }
+    .settings-container {
+        position: static;
+        transform: none;
+        margin-top: 10px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    .settings-gear-btn {
+        width: 80%;
+        justify-content: center;
+    }
+    .settings-dropdown {
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80%;
+    }
 }
