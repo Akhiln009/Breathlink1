@@ -12,9 +12,12 @@
 </head>
 <body>
 
-<header>
-    <h1>Global Breath-Link Initiative</h1>
-    <p>Democratizing Lung Health: A Triage-to-Treatment Ecosystem</p>
+<header id="heroHeader">
+    <canvas id="headerParticleCanvas"></canvas>
+    <div class="header-foreground">
+        <h1>Global Breath-Link Initiative</h1>
+        <p>Democratizing Lung Health: A Triage-to-Treatment Ecosystem</p>
+    </div>
 </header>
 
 <div class="top-nav">
@@ -24,21 +27,30 @@
     <a href="treatment.html">💊 Treatment Plan</a>
     <a href="kids.html" class="kids-nav-btn">🌈 Kids Zone</a>
     
-    <div class="custom-translator">
-        <select id="custom-language-select" onchange="triggerGoogleTranslate(this.value)">
-            <option value="en">EN - English</option>
-            <option value="es">ES - Español</option>
-            <option value="zh-CN">ZH - 中文</option>
-            <option value="hi">HI - हिन्दी</option>
-            <option value="ar">AR - العربية</option>
-            <option value="pt">PT - Português</option>
-            <option value="bn">BN - বাংলা</option>
-            <option value="ru">RU - Русский</option>
-            <option value="fr">FR - Français</option>
-            <option value="de">DE - Deutsch</option>
-        </select>
+    <div class="settings-container">
+        <button class="settings-gear-btn" id="gearBtn" onclick="toggleSettingsMenu(event)">⚙️ Settings</button>
+        <div class="settings-dropdown" id="settingsDropdown">
+            <label for="custom-language-select">🌐 Language:</label>
+            <select id="custom-language-select" onchange="triggerGoogleTranslate(this.value)">
+                <option value="en">EN - English</option>
+                <option value="es">ES - Español</option>
+                <option value="zh-CN">ZH - 中文</option>
+                <option value="hi">HI - हिन्दी</option>
+                <option value="ar">AR - العربية</option>
+                <option value="pt">PT - Português</option>
+                <option value="bn">BN - বাংলা</option>
+                <option value="ru">RU - Русский</option>
+                <option value="fr">FR - Français</option>
+                <option value="de">DE - Deutsch</option>
+            </select>
+            
+            <label style="margin-top: 8px;">🎨 Layout Theme:</label>
+            <button class="theme-toggle-btn" onclick="toggleDarkModeTheme()">🌓 Toggle Dark Mode</button>
+        </div>
     </div>
 </div>
+
+<div id="chat-alert-bubble">👋 Need help? Ask me here!</div>
 
 <div id="chat-container">
     <div id="chat-header">
@@ -46,7 +58,7 @@
         <button id="close-btn">−</button>
     </div>
     <div id="chat-box">
-        <div class="message bot-message">Hello! How can I help you with Breathlink today?</div>
+        <div class="message bot-message">Hello! How can I help you with Breathlink today? Ask me about our path tools, AI Biopsy systems, or the Kids Zone!</div>
     </div>
     <div id="chat-input-area">
         <input type="text" id="user-input" placeholder="Ask a question..." />
@@ -57,14 +69,10 @@
 
 <div class="container" id="mainContent">
     <section>
-        <div class="grid">
-
-            <div class="card" 
-                onclick="window.location.href='awareness.html'" 
-                style="cursor:pointer; transition:box-shadow 0.2s;" 
-                onmouseover="this.style.boxShadow='0 6px 24px rgba(26,74,124,0.18)'" 
-                onmouseout="this.style.boxShadow='0 2px 10px rgba(0,0,0,0.1)'">
-                
+        <div class="grid" id="portalGrid">
+            
+            <div class="card" onclick="window.location.href='awareness.html'" style="cursor:pointer;">
+                <div class="card-meta"><span>⏱️ 5 min learn</span><span>⭐ Certification</span></div>
                 <h3>1. Awareness: Breath-Wise Gateway</h3>
                 <p>Interactive environmental risk analysis and clinical pathology simulation.</p>
 
@@ -75,19 +83,13 @@
                     <li>Educational Certification Exam</li>
                 </ul>
 
-                <div style="margin-top: auto; text-align: center; padding-top: 25px;">
-                    <span class="tag" style="background:var(--primary); color:white;">
-                        ▶ Launch Awareness Simulator
-                    </span>
+                <div class="card-action-bar">
+                    <span class="tag">▶ Launch Awareness Simulator</span>
                 </div>
             </div>
 
-            <div class="card"
-                onclick="window.location.href='detection.html'"
-                style="cursor:pointer; transition:box-shadow 0.2s;"
-                onmouseover="this.style.boxShadow='0 6px 24px rgba(26,74,124,0.18)'"
-                onmouseout="this.style.boxShadow='0 2px 10px rgba(0,0,0,0.1)'">
-
+            <div class="card" onclick="window.location.href='detection.html'" style="cursor:pointer;">
+                <div class="card-meta"><span>🎙️ Audio Mic Required</span><span>🔬 AI Diagnostic</span></div>
                 <h3>2. Detection: AI Acoustic Biopsy</h3>
                 <p>Advanced pre-screening smartphone diagnostic tools.</p>
 
@@ -97,19 +99,13 @@
                     <li>Real-time FFT audio extraction</li>
                 </ul>
 
-                <div style="margin-top: auto; text-align: center; padding-top: 25px;">
-                    <span class="tag" style="background:var(--primary); color:white;">
-                        ▶ Launch Detection Tool
-                    </span>
+                <div class="card-action-bar">
+                    <span class="tag">▶ Launch Detection Tool</span>
                 </div>
             </div>
 
-            <div class="card treatment-card"
-                onclick="window.location.href='treatment.html'"
-                style="cursor:pointer; transition:box-shadow 0.2s;"
-                onmouseover="this.style.boxShadow='0 6px 24px rgba(26,74,124,0.18)'"
-                onmouseout="this.style.boxShadow='0 2px 10px rgba(0,0,0,0.1)'">
-
+            <div class="card treatment-card" onclick="window.location.href='treatment.html'" style="cursor:pointer;">
+                <div class="card-meta"><span>📍 Maps Integrated</span><span>💊 Doctor Ready</span></div>
                 <h3>3. Treatment: Personalized Care Pathway</h3>
                 <p>Turn your AI risk score into real clinical next steps.</p>
 
@@ -120,10 +116,8 @@
                     <li>Download doctor-ready report</li>
                 </ul>
 
-                <div style="margin-top: auto; text-align: center; padding-top: 25px;">
-                    <span class="tag" style="background:var(--primary); color:white;">
-                        ▶ View Treatment Plan
-                    </span>
+                <div class="card-action-bar">
+                    <span class="tag">▶ View Treatment Plan</span>
                 </div>
             </div>
 
@@ -164,7 +158,6 @@
 <div id="google_translate_element" style="display:none;"></div>
 
 <script type="text/javascript">
-// Initialize the hidden Google widget
 function googleTranslateElementInit() {
     new google.translate.TranslateElement({
         pageLanguage: 'en',
@@ -173,12 +166,10 @@ function googleTranslateElementInit() {
     }, 'google_translate_element');
 }
 
-// Function to pass your custom dropdown choice to the hidden Google dropdown
 function triggerGoogleTranslate(langCode) {
     const googleSelect = document.querySelector('.goog-te-combo');
     if (googleSelect) {
         googleSelect.value = langCode;
-        // This forces Google to register the change and translate the page
         googleSelect.dispatchEvent(new Event('change')); 
     }
 }
@@ -188,6 +179,5 @@ function triggerGoogleTranslate(langCode) {
 <script src="data.js"></script>
 <script src="script.js"></script>
 <script src="main.js"></script>
-
 </body>
 </html>
