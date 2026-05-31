@@ -262,7 +262,7 @@ function initHeaderParticles() {
         update() {
             this.x += this.speedX;
             this.y += this.speedY;
-            if (this.y < -10) { // Wrap bottom loop
+            if (this.y < -10) { 
                 this.y = canvas.height + 10;
                 this.x = Math.random() * canvas.width;
             }

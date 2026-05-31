@@ -130,9 +130,12 @@
 </head>
 <body>
 
-<header>
-    <h1>Global Breath-Link Initiative</h1>
-    <p>Democratizing Lung Health: A Triage-to-Treatment Ecosystem</p>
+<header id="heroHeader">
+    <canvas id="headerParticleCanvas"></canvas>
+    <div class="header-foreground">
+        <h1>Global Breath-Link Initiative</h1>
+        <p>Democratizing Lung Health: A Triage-to-Treatment Ecosystem</p>
+    </div>
 </header>
 
 <div class="top-nav">
@@ -141,21 +144,45 @@
     <a href="detection.html">🔬 AI Acoustic Biopsy</a>
     <a href="treatment.html" class="active">💊 Treatment Plan</a>
     <a href="kids.html" class="kids-nav-btn">🌈 Kids Zone</a>
-<div class="custom-translator">
-    <select id="custom-language-select" onchange="triggerGoogleTranslate(this.value)">
-        <option value="en">EN - English</option>
-        <option value="es">ES - Español</option>
-        <option value="zh-CN">ZH - 中文</option>
-        <option value="hi">HI - हिन्दी</option>
-        <option value="ar">AR - العربية</option>
-        <option value="pt">PT - Português</option>
-        <option value="bn">BN - বাংলা</option>
-        <option value="ru">RU - Русский</option>
-        <option value="fr">FR - Français</option>
-        <option value="de">DE - Deutsch</option>
-    </select>
+    
+    <div class="settings-container">
+        <button class="settings-gear-btn" id="gearBtn" onclick="toggleSettingsMenu(event)">⚙️ Settings</button>
+        <div class="settings-dropdown" id="settingsDropdown">
+            <label for="custom-language-select">🌐 Language:</label>
+            <select id="custom-language-select" onchange="triggerGoogleTranslate(this.value)">
+                <option value="en">EN - English</option>
+                <option value="es">ES - Español</option>
+                <option value="zh-CN">ZH - 中文</option>
+                <option value="hi">HI - हिन्दी</option>
+                <option value="ar">AR - العربية</option>
+                <option value="pt">PT - Português</option>
+                <option value="bn">BN - বাংলা</option>
+                <option value="ru">RU - Русский</option>
+                <option value="fr">FR - Français</option>
+                <option value="de">DE - Deutsch</option>
+            </select>
+            
+            <label style="margin-top: 8px;">🎨 Layout Theme:</label>
+            <button class="theme-toggle-btn" onclick="toggleDarkModeTheme()">🌓 Toggle Dark Mode</button>
+        </div>
+    </div>
 </div>
+
+<div id="chat-alert-bubble">👋 Need help? Ask me here!</div>
+<div id="chat-container">
+    <div id="chat-header">
+        <span>Breathlink Support</span>
+        <button id="close-btn">−</button>
+    </div>
+    <div id="chat-box">
+        <div class="message bot-message">Hello! How can I help you with your care tracking checklist today?</div>
+    </div>
+    <div id="chat-input-area">
+        <input type="text" id="user-input" placeholder="Ask a question..." />
+        <button id="send-btn">Send</button>
+    </div>
 </div>
+<button id="chat-toggle-btn">💬 Help</button>
 
 <div class="container" id="mainContent">
     <div class="treatment-wrap">
@@ -194,7 +221,7 @@
             <div class="map-filter-row">
                 <button class="filter-btn active" data-type="Hospitals" onclick="setFilter(this,'Hospitals')">🏥 Hospitals</button>
                 <button class="filter-btn" data-type="Pulmonologists" onclick="setFilter(this,'Pulmonologists')">👨‍⚕️ Doctors</button>
-                <button class="filter-btn" data-type="Respiratory Clinics" onclick="setFilter(this,'Respiratory Clinics')">𫆩 Pulmonology</button>
+                <button class="filter-btn" data-type="Respiratory Clinics" onclick="setFilter(this,'Respiratory Clinics')">🫁 Pulmonology</button>
                 <button class="filter-btn" data-type="Pharmacies" onclick="setFilter(this,'Pharmacies')">💊 Pharmacy</button>
             </div>
 
@@ -202,8 +229,7 @@
                 <iframe id="mapFrame" width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen src="https://www.google.com/maps?q=Hospitals&output=embed"></iframe>
             </div>
 
-            <div id="suggestedLinks" style="color:#444; font-size:0.9rem; padding:15px; background:#f9f9f9; border:1px solid #eee; border-radius:8px; line-height:1.8; margin-top:15px;">
-                </div>
+            <div id="suggestedLinks" style="color:#444; font-size:0.9rem; padding:15px; background:#f9f9f9; border:1px solid #eee; border-radius:8px; line-height:1.8; margin-top:15px;"></div>
         </div>
 
         <div class="card" style="border-top-color: #ddd; margin-bottom: 20px;">
@@ -279,19 +305,11 @@
     </div>
 </div>
 
-<footer style="background: #060e1a; padding: 25px 20px; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; font-family: 'Segoe UI', Tahoma, sans-serif; font-size: 0.85rem; color: #888;">
-    <div style="margin-bottom: 6px;">
-        <strong style="color: #ddd; letter-spacing: 0.05em;">Global Breath-Link Initiative</strong>  |  
-        Spearheaded by
-        <span style="font-weight: 800; letter-spacing: 0.02em; background: linear-gradient(90deg, #27ae60, #0abde3); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Ashrita Nagalla</span>
-        &
-        <span style="font-weight: 800; letter-spacing: 0.02em; background: linear-gradient(90deg, #0abde3, #27ae60); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Akhil Nagalla</span>
-    </div>
-    <div>
-        📧 <a href="mailto:contact@breathlink.org" style="color: var(--secondary); text-decoration: none; font-weight: 600; transition: 0.2s;" onmouseover="this.style.color='#0abde3'" onmouseout="this.style.color='var(--secondary)'">contact@breathlink.org</a>
-         |  © 2026 All Rights Reserved
-    </div>
-</footer>
+<div id="google_translate_element" style="display:none;"></div>
+
+<script src="data.js"></script>
+<script src="script.js"></script>
+<script src="main.js"></script>
 
 <script>
 // ══════════════════════════════════════════
@@ -343,11 +361,6 @@ function useMyLocation() {
         document.getElementById('locationInput').value = "";
     });
 }
-
-window.onload = () => {
-    findCare();
-};
-
 
 // ══════════════════════════════════════════
 // READ REAL SCORE FROM LOCALSTORAGE
@@ -437,7 +450,7 @@ if (score === null) {
     ];
 }
 
-// Apply to DOM
+// Render dynamic contents onto templates
 document.getElementById('score').textContent = rawScore !== null ? score : '--';
 document.getElementById('score').style.color = riskColor;
 document.getElementById('riskBadge').textContent = riskWord;
@@ -459,20 +472,21 @@ document.getElementById('summaryTable').innerHTML = `
     <div class="summary-row"><span class="key">Lifestyle Changes</span><span class="val">${lifestyle.length} changes identified</span></div>
     <div class="summary-row"><span class="key">Date</span><span class="val">${new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'})}</span></div>`;
 
+// Page runtime entry initiation hooks
+window.addEventListener('DOMContentLoaded', () => {
+    findCare();
+});
 
 // ══════════════════════════════════════════
 // WEBHOOK CARE TRACKER ROUTINE (EMAIL AUTOMATION)
 // ══════════════════════════════════════════
-// The element style.display configuration line for score restriction is removed
-// so that this element stays fully visible on screen layout load for all states.
-
 document.getElementById('careTrackerForm').addEventListener('submit', async function(e) {
     e.preventDefault();
-   
+    
     const emailInput = document.getElementById('patientEmail');
     const submitBtn = document.getElementById('submitTrackerBtn');
     const msgContainer = document.getElementById('trackerMessage');
-   
+    
     submitBtn.innerText = "Activating...";
     submitBtn.disabled = true;
 
@@ -500,8 +514,7 @@ document.getElementById('careTrackerForm').addEventListener('submit', async func
             msgContainer.style.color = "#22543d";
             msgContainer.style.border = "1px solid #9ae6b4";
             msgContainer.style.display = 'block';
-           
-            // Hide registration form fields upon successful tracking confirmation
+            
             emailInput.style.display = "none";
             submitBtn.style.display = "none";
         } else {
@@ -519,7 +532,6 @@ document.getElementById('careTrackerForm').addEventListener('submit', async func
     }
 });
 
-
 // ══════════════════════════════════════════
 // DOWNLOAD REPORT
 // ══════════════════════════════════════════
@@ -527,8 +539,56 @@ function downloadReport() {
     const text = `GLOBAL BREATH-LINK INITIATIVE — Analysis Summary
 ================================================
 Date: ${new Date().toLocaleDateString()}
-Tool: Gl\n`;
+Tool: Global Breath-Link Initiative (Prototype v0.1)
+
+TRIAGE RESULT
+-------------
+Score:      ${rawScore !== null ? score : 'N/A'}/100
+Risk Level: ${riskWord}
+Assessment: ${riskDesc}
+
+RECOMMENDED CLINICAL STEPS
+---------------------------
+${steps.map((s, i) => `${i+1}. ${s}`).join('\n')}
+
+LIFESTYLE ACTION PLAN
+---------------------
+${lifestyle.map(l => `• ${l.text}`).join('\n')}
+
+DISCLAIMER
+----------
+This is a prototype pre-screening tool, NOT a medical diagnosis.
+Please share with a qualified healthcare provider.
+Proposed by: Ashrita Nagalla & Akhil Nagalla
+`;
+    const blob = new Blob([text], { type:'text/plain' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `BreathLink_TreatmentPlan_${new Date().toISOString().slice(0,10)}.txt`;
+    a.click();
 }
 </script>
+
+<div id="google_translate_element" style="display:none;"></div>
+
+<script type="text/javascript">
+function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: 'en,es,zh-CN,hi,ar,pt,bn,ru,fr,de',
+        autoDisplay: false
+    }, 'google_translate_element');
+}
+
+function triggerGoogleTranslate(langCode) {
+    const googleSelect = document.querySelector('.goog-te-combo');
+    if (googleSelect) {
+        googleSelect.value = langCode;
+        googleSelect.dispatchEvent(new Event('change')); 
+    }
+}
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 </body>
 </html>

@@ -28,7 +28,7 @@ body {
     padding: 20px; 
 }
 
-/* ── ULTIMATE CANVA HEADER DESIGN ── */
+/* ── ULTIMATE CANVAS HEADER DESIGN ── */
 header { 
     position: relative;
     background: linear-gradient(135deg, #102a45 0%, #1a4a7c 100%); 
@@ -96,7 +96,7 @@ section {
 /* ── GLOBAL NAVIGATION BAR STRUCTURE ─────── */
 /* ========================================== */
 .top-nav {
-    background: rgba(248, 249, 25fa, 0.95);
+    background: rgba(248, 249, 250, 0.95);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid #dee2e6;
     padding: 15px 180px 15px 20px; 
@@ -248,7 +248,6 @@ section {
     border-color: rgba(26, 74, 124, 0.2);
 }
 
-/* Metric Metadata Tags Inside Cards */
 .card-meta {
     display: flex;
     justify-content: space-between;
@@ -332,7 +331,7 @@ canvas { display: block; max-width: 100%; height: auto; }
 .close-quiz:hover { color: #555; }
 
 /* ========================================== */
-/* ── INTERACTIVE FAQ CHATBOT COMPONENT UI ── */
+/* ── FAQ CHATBOT COMPONENT UI ────────────── */
 /* ========================================== */
 #chat-toggle-btn {
     position: fixed;
@@ -444,7 +443,6 @@ canvas { display: block; max-width: 100%; height: auto; }
     font-weight: bold;
 }
 
-/* ── CHAT ALERT NOTIFICATION BUBBLE ── */
 #chat-alert-bubble {
     position: fixed;
     bottom: 85px;

@@ -420,7 +420,7 @@ body::before {
   display: none;
 }
 
-.quiz-result-emoji { font-size: 5rem; margin-bottom: 16px; display: block; animation: spin 1s ease; }
+.quiz-result-emoji { font-size: 5rem; margin-bottom: 16px; display: block; margin-bottom: 16px; display: block; animation: spin 1s ease; }
 @keyframes spin { from { transform: rotate(-20deg) scale(0); } to { transform: rotate(0) scale(1); } }
 
 .quiz-result h3 {
@@ -578,34 +578,23 @@ body::before {
 </head>
 <body>
 
-<!-- NAVIGATION BAR -->
 <div class="nav">
-<div class="nav-logo">
-  <img src="BreathLinkLogoHD.png" alt="BreathLink Logo" style="height: 45px; width: auto; object-fit: contain;"> 
-  Kids Zone 🌈
-</div>
+  <div class="nav-logo">🫁 Kids Zone 🌈</div>
   <a href="index.html" class="exit-kids-btn">Exit Kids Zone ↩</a>
 </div>
 
-<!-- HERO -->
 <div class="hero">
   <div class="hero-badge">🌈 KIDS ZONE — Ages 6–13</div>
 
-  <!-- Animated Lung SVG -->
   <div class="lung-hero">
     <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-      <!-- Trachea -->
       <rect x="90" y="10" width="20" height="60" rx="10" fill="#3b9edd" opacity="0.8"/>
-      <!-- Left lung -->
       <ellipse cx="65" cy="130" rx="52" ry="65" fill="#4ecb71" opacity="0.85"/>
       <ellipse cx="65" cy="130" rx="38" ry="50" fill="#81e0a0" opacity="0.6"/>
-      <!-- Right lung -->
       <ellipse cx="135" cy="130" rx="52" ry="65" fill="#3b9edd" opacity="0.85"/>
       <ellipse cx="135" cy="130" rx="38" ry="50" fill="#67c8ff" opacity="0.6"/>
-      <!-- Bronchi -->
       <path d="M100 65 Q80 85 65 100" stroke="#2d3436" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.4"/>
       <path d="M100 65 Q120 85 135 100" stroke="#2d3436" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.4"/>
-      <!-- Heart decoration -->
       <text x="88" y="145" font-size="24" opacity="0.5">❤️</text>
     </svg>
   </div>
@@ -616,7 +605,6 @@ body::before {
 
 <div class="wrap">
 
-  <!-- ── SECTION 1: FUN LUNG FACTS ── -->
   <div class="section-card card-blue">
     <div class="section-title" style="color:#3b9edd;">🌟 Cool Lung Facts!</div>
     <div class="section-sub">Did you know these amazing things about your lungs?</div>
@@ -643,7 +631,7 @@ body::before {
         <div class="fact-text">If you spread out all the tiny air sacs in your lungs, they'd cover a whole tennis court!</div>
       </div>
       <div class="fact-card" style="background:#ffe8f0;">
-        <span class="fact-emoji">🦁</span>
+        <span class="fact-emoji">💡</span>
         <div class="fact-title" style="color:#ff6eb4;">Right Lung is Bigger</div>
         <div class="fact-text">Your right lung has 3 sections (lobes) and your left lung only has 2 — to make room for your heart!</div>
       </div>
@@ -655,7 +643,6 @@ body::before {
     </div>
   </div>
 
-  <!-- ── SECTION 2: RISK FACTORS (KID VERSION) ── -->
   <div class="section-card card-green">
     <div class="section-title" style="color:#4ecb71;">🛡️ How to Protect Your Lungs</div>
     <div class="section-sub">Swipe to see things that can hurt your lungs — and how to stay safe!</div>
@@ -699,7 +686,6 @@ body::before {
     </div>
   </div>
 
-  <!-- ── SECTION 3: BREATHING EXERCISE ── -->
   <div class="section-card card-purple">
     <div class="section-title" style="color:#a855f7;">🧘 Breathing Exercise</div>
     <div class="section-sub">Practice belly breathing — it's what doctors recommend to keep lungs healthy!</div>
@@ -723,7 +709,6 @@ body::before {
     </div>
   </div>
 
-  <!-- ── SECTION 4: QUIZ GAME ── -->
   <div class="section-card card-yellow">
     <div class="section-title" style="color:#e67e22;">🎮 Lung Quiz Game!</div>
     <div class="section-sub">Answer 6 questions about your lungs and earn certificate! ⭐</div>
@@ -746,7 +731,6 @@ body::before {
       <div class="quiz-score-display" id="resultScore">0/6</div>
       <p id="resultMsg" style="color:#555;font-weight:700;font-size:1rem;"></p>
       
-      <!-- Hidden Name Input Container for Kids Certificate -->
       <div class="kids-cert-zone" id="kidsCertZone">
          <h4>🎓 Print Your Official Badge!</h4>
          <p style="font-size:0.85rem; color:#666; margin-bottom:12px; font-weight:bold;">Type your name to get your certificate badge:</p>
@@ -759,7 +743,6 @@ body::before {
     </div>
   </div>
 
-  <!-- ── SECTION 5: PLEDGE ── -->
   <div class="section-card card-pink" style="padding:0; overflow:visible; box-shadow:none; background:transparent;">
     <div class="pledge-box">
       <h3>🌟 Take the Lung Health Pledge!</h3>
@@ -772,10 +755,7 @@ body::before {
     </div>
   </div>
 
-</div><!-- /wrap -->
-
-<!-- Invisible Canvas Layer to draw the Certificate Graphic -->
-<canvas id="kidsCertCanvas" width="1600" height="1200" style="display:none;"></canvas>
+</div><canvas id="kidsCertCanvas" width="1600" height="1200" style="display:none;"></canvas>
 
 <footer style="background:#2d3436; color:rgba(255,255,255,0.6); text-align:center; padding:30px; font-size:0.85rem; font-weight:600;">
   🫁 Global Breath-Link Initiative | breathlink.org<br>
@@ -792,8 +772,8 @@ let breathRounds = 0;
 let breathPhase = 'idle';
 
 const phases = [
-  { name: 'BREATHE IN!',  duration: 4, class: 'inhale', tip: 'Breathe in slowly through your nose... fill your belly!', emoji: '🌬️' },
-  { name: 'HOLD IT!',     duration: 4, class: 'hold',   tip: 'Hold your breath gently... you can do it!',              emoji: '⏸️' },
+  { name: 'BREATHE IN!',     duration: 4, class: 'inhale', tip: 'Breathe in slowly through your nose... fill your belly!', emoji: '🌬️' },
+  { name: 'HOLD IT!',      duration: 4, class: 'hold',   tip: 'Hold your breath gently... you can do it!',              emoji: '⏸️' },
   { name: 'BREATHE OUT!', duration: 6, class: 'exhale', tip: 'Breathe out slowly through your mouth... let it all go!', emoji: '😮‍💨' },
 ];
 
@@ -856,9 +836,9 @@ function runBreathPhase(phaseIdx) {
 }
 
 // ══════════════════════════
-// QUIZ GAME
+// RANDOMIZED QUIZ ENGINE DATA
 // ══════════════════════════
-const questions = [
+const MASTER_QUESTIONS = [
   { emoji:'🌬️', q:'How many times do you breathe every day?', opts:['About 100 times','About 2,000 times','About 20,000 times','About 1,000,000 times'], correct:2, fact:'Wow! You breathe about 20,000 times every single day without even thinking about it!' },
   { emoji:'🎈', q:'What do your lungs look like when you breathe in?', opts:['They get smaller','They stay the same','They fill with water','They get bigger like balloons!'], correct:3, fact:'Exactly! Your lungs inflate like balloons when you breathe in and deflate when you breathe out!' },
   { emoji:'🩸', q:'What does oxygen in your lungs do?', opts:['Makes you sleepy','Goes into your blood and travels everywhere','Stays in your lungs forever','Turns into food'], correct:1, fact:'Right! Oxygen goes from your lungs into your blood, which carries it to every cell in your body!' },
@@ -867,15 +847,34 @@ const questions = [
   { emoji:'🫁', q:'Why is your left lung a little smaller than your right?', opts:['It gets less food','To make room for your heart!','It grows slower','It lost a section'], correct:1, fact:'Brilliant! Your left lung has 2 sections and your right has 3, because your heart lives on the left side of your chest!' },
 ];
 
+let activeQuestions = [];
 let currentQ = 0;
 let quizScore = 0;
 let answered = false;
 
+// Fisher-Yates Shuffling Core Algorithm
+function shuffleQuestions(array) {
+  let ShuffledCopy = [...array];
+  for (let i = ShuffledCopy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [ShuffledCopy[i], ShuffledCopy[j]] = [ShuffledCopy[j], ShuffledCopy[i]];
+  }
+  return ShuffledCopy;
+}
+
+function initializeQuiz() {
+  // Shuffles a clone of the pool so data never degrades or maps identically twice
+  activeQuestions = shuffleQuestions(MASTER_QUESTIONS);
+  currentQ = 0;
+  quizScore = 0;
+  answered = false;
+}
+
 function loadQuestion() {
-  const q = questions[currentQ];
+  const q = activeQuestions[currentQ];
   document.getElementById('quizEmoji').textContent = q.emoji;
   document.getElementById('quizQuestion').textContent = q.q;
-  document.getElementById('quizProgress').style.width = ((currentQ / questions.length) * 100) + '%';
+  document.getElementById('quizProgress').style.width = ((currentQ / activeQuestions.length) * 100) + '%';
 
   const opts = document.getElementById('quizOptions');
   opts.innerHTML = '';
@@ -896,7 +895,7 @@ function loadQuestion() {
 function selectAnswer(idx) {
   if (answered) return;
   answered = true;
-  const q = questions[currentQ];
+  const q = activeQuestions[currentQ];
   const opts = document.querySelectorAll('.quiz-opt');
 
   opts.forEach((btn, i) => {
@@ -923,7 +922,7 @@ function selectAnswer(idx) {
 
 function nextQuestion() {
   currentQ++;
-  if (currentQ >= questions.length) {
+  if (currentQ >= activeQuestions.length) {
     showQuizResult();
   } else {
     loadQuestion();
@@ -936,7 +935,7 @@ function showQuizResult() {
   const result = document.getElementById('quizResult');
   result.style.display = 'block';
 
-  const pct = quizScore / questions.length;
+  const pct = quizScore / activeQuestions.length;
   let emoji, title, msg;
   if (pct === 1)         { emoji='🏆'; title='PERFECT SCORE!';     msg='You are a Lung Health GENIUS! Type your name below to download your Official Certificate badge!'; document.getElementById('kidsCertZone').style.display='block';}
   else if (pct >= 0.67) { emoji='🌟'; title='Amazing Job!';        msg='You really know your lungs! Try again to get a perfect score and unlock your certificate!'; document.getElementById('kidsCertZone').style.display='none';}
@@ -945,13 +944,13 @@ function showQuizResult() {
 
   document.getElementById('resultEmoji').textContent = emoji;
   document.getElementById('resultTitle').textContent = title;
-  document.getElementById('resultScore').textContent = quizScore + '/' + questions.length;
+  document.getElementById('resultScore').textContent = quizScore + '/' + activeQuestions.length;
   document.getElementById('resultMsg').textContent = msg;
   spawnStars(10);
 }
 
 function restartQuiz() {
-  currentQ = 0; quizScore = 0; answered = false;
+  initializeQuiz();
   document.getElementById('quizMain').style.display = 'block';
   document.getElementById('quizResult').style.display = 'none';
   document.getElementById('kidsNameInput').value = '';
@@ -959,7 +958,7 @@ function restartQuiz() {
 }
 
 // ══════════════════════════
-// CANVA CERTIFICATE GENERATOR (HD VERSION)
+// CANVAS CERTIFICATE GENERATOR (HD VERSION)
 // ══════════════════════════
 function generateKidsCertificate() {
   const kidName = document.getElementById('kidsNameInput').value.trim();
@@ -971,20 +970,16 @@ function generateKidsCertificate() {
   const canvas = document.getElementById('kidsCertCanvas');
   const ctx = canvas.getContext('2d');
 
-  // Scale the context 2x for High Definition rendering
   ctx.scale(2, 2);
 
-  // Fill Background color (Expanded height to 600)
   ctx.fillStyle = "#e0f4ff";
   ctx.fillRect(0, 0, 800, 600);
 
-  // White center panel card
   ctx.fillStyle = "#ffffff";
   ctx.beginPath();
   ctx.roundRect(30, 30, 740, 540, 24);
   ctx.fill();
 
-  // Vibrant borders
   ctx.strokeStyle = "#3b9edd"; 
   ctx.lineWidth = 10;
   ctx.stroke();
@@ -993,7 +988,6 @@ function generateKidsCertificate() {
   ctx.lineWidth = 3;
   ctx.strokeRect(45, 45, 710, 510);
 
-  // Titles
   ctx.textAlign = "center";
   ctx.fillStyle = "#3b9edd";
   ctx.font = "bold 34px 'Fredoka One', Arial, sans-serif";
@@ -1003,17 +997,14 @@ function generateKidsCertificate() {
   ctx.font = "bold 20px 'Fredoka One', Arial, sans-serif";
   ctx.fillText("★ CERTIFICATE OF ACHIEVEMENT ★", 400, 150);
 
-  // Sub text descriptions
   ctx.fillStyle = "#555555";
   ctx.font = "18px 'Nunito', Arial, sans-serif";
   ctx.fillText("This award proudly certifies that the lung expert:", 400, 210);
 
-  // Student Kid Name Line Display
   ctx.fillStyle = "#4ecb71"; 
   ctx.font = "bold 42px 'Fredoka One', Arial, sans-serif";
   ctx.fillText(kidName.toUpperCase(), 400, 270);
 
-  // Decorative border lines
   ctx.strokeStyle = "#ffd93d";
   ctx.lineWidth = 4;
   ctx.beginPath();
@@ -1021,13 +1012,11 @@ function generateKidsCertificate() {
   ctx.lineTo(600, 290);
   ctx.stroke();
 
-  // Paragraph achievement text
   ctx.fillStyle = "#555555";
   ctx.font = "bold 16px 'Nunito', Arial, sans-serif";
   ctx.fillText("Has completed interactive respiratory activities, mastered belly breathing,", 400, 340);
   ctx.fillText("and passed the Kids Zone Examination with a perfect 6/6 score! ⭐", 400, 375);
 
-  // Load Logo and QR Code dynamically
   const logoImg = new Image();
   const qrImg = new Image();
   
@@ -1039,19 +1028,14 @@ function generateKidsCertificate() {
   const finalizeCertificate = () => {
       imagesLoaded++;
       if (imagesLoaded === 2) {
-          // Draw Logo larger (130x130) on the left
           ctx.drawImage(logoImg, 250, 405, 130, 130);
-          
-          // Draw QR Code larger (130x130) on the right
           ctx.drawImage(qrImg, 420, 405, 130, 130);
           
-          // Download Trigger
           const fileLink = document.createElement('a');
           fileLink.download = 'BreathLink_Kids_Hero_' + kidName.replace(/\s+/g, '_') + '.png';
           fileLink.href = canvas.toDataURL('image/png');
           fileLink.click();
 
-          // Reset the scale so it doesn't exponentially multiply on next clicks
           ctx.setTransform(1, 0, 0, 1, 0, 0); 
       }
   };
@@ -1062,6 +1046,7 @@ function generateKidsCertificate() {
   logoImg.onerror = finalizeCertificate;
   qrImg.onerror = finalizeCertificate;
 }
+
 // ══════════════════════════
 // PLEDGE
 // ══════════════════════════
@@ -1089,7 +1074,8 @@ function spawnStars(count) {
   }
 }
 
-// Init quiz
+// Run initial shuffler loop state before question loading hooks execute
+initializeQuiz();
 loadQuestion();
 </script>
 </body>

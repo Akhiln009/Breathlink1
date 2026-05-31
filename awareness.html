@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -12,122 +12,145 @@
 </head>
 <body>
 
-    <header>
+<header id="heroHeader">
+    <canvas id="headerParticleCanvas"></canvas>
+    <div class="header-foreground">
         <h1>Global Breath-Link Initiative</h1>
         <p>Democratizing Lung Health: A Triage-to-Treatment Ecosystem</p>
-    </header>
+    </div>
+</header>
 
-    <div class="top-nav">
-        <a href="index.html">🏠 Home</a>
-        <a href="awareness.html" class="active">🫁 Awareness Simulator</a>
-        <a href="detection.html">🔬 AI Acoustic Biopsy</a>
-        <a href="treatment.html">💊 Treatment Plan</a>
-        <!-- Distinct Kids Zone Button -->
+<div class="top-nav">
+    <a href="index.html">🏠 Home</a>
+    <a href="awareness.html" class="active">🫁 Awareness Simulator</a>
+    <a href="detection.html">🔬 AI Acoustic Biopsy</a>
+    <a href="treatment.html">💊 Treatment Plan</a>
     <a href="kids.html" class="kids-nav-btn">🌈 Kids Zone</a>
-
-        <div class="custom-translator">
-    <select id="custom-language-select" onchange="triggerGoogleTranslate(this.value)">
-        <option value="en">EN - English</option>
-        <option value="es">ES - Español</option>
-        <option value="zh-CN">ZH - 中文</option>
-        <option value="hi">HI - हिन्दी</option>
-        <option value="ar">AR - العربية</option>
-        <option value="pt">PT - Português</option>
-        <option value="bn">BN - বাংলা</option>
-        <option value="ru">RU - Русский</option>
-        <option value="fr">FR - Français</option>
-        <option value="de">DE - Deutsch</option>
-    </select>
-</div>
-    </div>
-
-    <div class="container" id="mainContent">
-        <div style="text-align:center; margin-bottom:40px; padding-top:10px;">
-            <div style="display:inline-block; background:#e8f4fd; border:1px solid var(--primary); border-radius:20px; padding:6px 18px; font-size:0.8rem; font-weight: bold; color:var(--primary); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:16px;">ENVIRONMENTAL RISK ANALYSIS</div>
-            <h2 style="font-size:2.2rem; margin-top:0; margin-bottom:15px; color:var(--primary);">1. Awareness Simulator</h2>
-            <p style="color:#555; max-width:600px; margin:auto; line-height:1.6; font-size:1.05rem;">Select an environmental or genetic risk factor below to launch the interactive clinical pathology simulation and take your certification exam.</p>
-        </div>
-
-        <div class="card" style="border-top-color: var(--secondary); text-align: center; max-width: 700px; margin: 0 auto;">
-            <h3 style="margin-top:0; font-size: 1.2rem;">Select a Clinical Topic:</h3>
-            <div class="tag-cloud" style="justify-content: center; padding: 15px 0;">
-                <span class="tag" onclick="openSim('radon')">☢️ Radon Gas</span>
-                <span class="tag" onclick="openSim('cookfire')">🔥 Cookfire Smoke</span>
-                <span class="tag" onclick="openSim('genetics')">🧬 Genetic Factors</span>
-                <span class="tag" onclick="openSim('radiation')">⚡ Ionizing Radiation</span>
-                <span class="tag" onclick="openSim('alcohol')">🍷 Alcohol Impact</span>
-                <span class="tag" onclick="openSim('air')">🏭 Urban Air Pollution</span>
-                <span class="tag" onclick="openSim('diet')">🥗 Diet & Lifestyle</span>
-                <span class="tag" onclick="openSim('carcinogens')">🏗️ Industrial Carcinogens</span>
-            </div>
-        </div>
-    </div>
-
-    <div id="simulator">
-        <button onclick="goBack()" style="background:var(--primary); color:white; border:none; padding:10px 20px; border-radius:6px; cursor:pointer; font-weight:bold; transition:0.2s; box-shadow:0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px;">⬅ Go Back to Clinical Topics</button>
-
-        <h2 id="simTitle" style="color:var(--primary); margin-top:10px;">PATHOLOGY ANALYSIS</h2>
-
-        <div class="viewer">
-            <canvas id="lungCanvas" width="300" height="300"></canvas>
-        </div>
-
-        <div class="healthbar"><div id="healthFill" class="healthfill"></div></div>
-
-        <div class="controls">
-            <button id="step-healthy" onclick="setExposure('healthy')">Healthy State</button>
-            <button id="step-low" onclick="setExposure('low')">Low Exposure</button>
-            <button id="step-medium" onclick="setExposure('medium')">Medium Exposure</button>
-            <button id="step-high" onclick="setExposure('high')">High Exposure</button>
-        </div>
-
-        <div class="edu-panel">
-            <h3 id="eduHeading" style="color:var(--primary); margin-top:0; border-bottom:2px solid #f0f0f0; padding-bottom:10px; font-size:1.4rem;">Diagnostic Overview</h3>
-            <p id="infoText" style="color:#555; font-size:1.05rem; font-weight:500; line-height:1.6;"></p>
-
-            <div id="detailedSpecs" style="font-size:0.95rem; margin-top:20px;">
-                <div style="background:#fdfdfd; padding:18px; border-radius:8px; margin-bottom:15px; border:1px solid #eee; border-left:4px solid var(--accent); box-shadow:0 2px 5px rgba(0,0,0,0.02);">
-                    <h4 style="color:var(--accent); margin:0 0 8px 0; text-transform:uppercase; font-size:0.85rem; letter-spacing:0.05em;">🔬 Cellular Pathogenesis</h4>
-                    <p id="specMech" style="color:#444; margin:0; line-height:1.6;"></p>
-                </div>
-                <div style="background:#fdfdfd; padding:18px; border-radius:8px; border:1px solid #eee; border-left:4px solid var(--danger); box-shadow:0 2px 5px rgba(0,0,0,0.02);">
-                    <h4 style="color:var(--danger); margin:0 0 8px 0; text-transform:uppercase; font-size:0.85rem; letter-spacing:0.05em;">📉 Long-term Prognosis</h4>
-                    <p id="specProg" style="color:#444; margin:0; line-height:1.6;"></p>
-                </div>
-            </div>
-        </div>
-
-        <p id="lockMessage" class="unlock-msg">🔒 Explore Healthy → Low → Medium → High to unlock the Exam.</p>
-        <button id="quizButton" class="quizBtn" onclick="startQuiz()">Take Certification Exam</button>
-    </div>
-
-    <div id="quizModal">
-        <div class="quiz-content">
-            <h2 id="quizHeader">Certification Exam</h2>
-            <div id="quizBody"></div>
-            <div id="quizResults"></div>
-
-            <div id="nameSection">
-                <h3>🎓 Enter Your Name for the Certificate</h3>
-                <p>Your name will appear exactly as you type it.</p>
-                <div class="name-inputs">
-                    <input type="text" id="firstNameInput" placeholder="First Name" maxlength="30">
-                    <input type="text" id="lastNameInput" placeholder="Last Name" maxlength="30">
-                </div>
-                <div id="nameError">Please enter both your first and last name.</div>
-            </div>
-
-            <button id="submitQuizBtn" onclick="submitQuiz()" style="background:var(--secondary); color:white; border:none; padding:14px; border-radius:8px; cursor:pointer; font-weight:bold; width:100%; font-size:1rem; transition:0.2s;" onmouseover="this.style.boxShadow='0 4px 15px rgba(39,174,96,0.3)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.boxShadow='none'; this.style.transform='none';">Submit Answers</button>
-            <button id="downloadCertBtn" onclick="generateCertificate()" class="cert-btn">⬇ Download My Certificate</button>
-            <button onclick="closeQuiz()" class="close-quiz">Close [X]</button>
-        </div>
-    </div>
-
-<!-- Invisible High-Definition Canvas for Professional Certificate -->
-<canvas id="certCanvas" width="1800" height="1300" style="display:none;"></canvas>
-
- <footer style="background: #060e1a; padding: 25px 20px; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; font-family: 'Segoe UI', Tahoma, sans-serif; font-size: 0.85rem; color: #888;">
     
+    <div class="settings-container">
+        <button class="settings-gear-btn" id="gearBtn" onclick="toggleSettingsMenu(event)">⚙️ Settings</button>
+        <div class="settings-dropdown" id="settingsDropdown">
+            <label for="custom-language-select">🌐 Language:</label>
+            <select id="custom-language-select" onchange="triggerGoogleTranslate(this.value)">
+                <option value="en">EN - English</option>
+                <option value="es">ES - Español</option>
+                <option value="zh-CN">ZH - 中文</option>
+                <option value="hi">HI - हिन्दी</option>
+                <option value="ar">AR - العربية</option>
+                <option value="pt">PT - Português</option>
+                <option value="bn">BN - বাংলা</option>
+                <option value="ru">RU - Русский</option>
+                <option value="fr">FR - Français</option>
+                <option value="de">DE - Deutsch</option>
+            </select>
+            
+            <label style="margin-top: 8px;">🎨 Layout Theme:</label>
+            <button class="theme-toggle-btn" onclick="toggleDarkModeTheme()">🌓 Toggle Dark Mode</button>
+        </div>
+    </div>
+</div>
+
+<div id="chat-alert-bubble">👋 Need help? Ask me here!</div>
+<div id="chat-container">
+    <div id="chat-header">
+        <span>Breathlink Support</span>
+        <button id="close-btn">−</button>
+    </div>
+    <div id="chat-box">
+        <div class="message bot-message">Hello! Need assistance navigating the pathology simulator or opening the exam logs?</div>
+    </div>
+    <div id="chat-input-area">
+        <input type="text" id="user-input" placeholder="Ask a question..." />
+        <button id="send-btn">Send</button>
+    </div>
+</div>
+<button id="chat-toggle-btn">💬 Help</button>
+
+<div class="container" id="mainContent">
+    <div style="text-align:center; margin-bottom:40px; padding-top:10px;">
+        <div style="display:inline-block; background:#e8f4fd; border:1px solid var(--primary); border-radius:20px; padding:6px 18px; font-size:0.8rem; font-weight: bold; color:var(--primary); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:16px;">ENVIRONMENTAL RISK ANALYSIS</div>
+        <h2 style="font-size:2.2rem; margin-top:0; margin-bottom:15px; color:var(--primary);">1. Awareness Simulator</h2>
+        <p style="color:#555; max-width:600px; margin:auto; line-height:1.6; font-size:1.05rem;">Select an environmental or genetic risk factor below to launch the interactive clinical pathology simulation and take your certification exam.</p>
+    </div>
+
+    <div class="card" style="border-top-color: var(--secondary); text-align: center; max-width: 700px; margin: 0 auto;">
+        <h3 style="margin-top:0; font-size: 1.2rem;">Select a Clinical Topic:</h3>
+        <div class="tag-cloud" style="justify-content: center; padding: 15px 0;">
+            <span class="tag" onclick="openSim('radon')">☢️ Radon Gas</span>
+            <span class="tag" onclick="openSim('cookfire')">🔥 Cookfire Smoke</span>
+            <span class="tag" onclick="openSim('genetics')">🧬 Genetic Factors</span>
+            <span class="tag" onclick="openSim('radiation')">⚡ Ionizing Radiation</span>
+            <span class="tag" onclick="openSim('alcohol')">🍷 Alcohol Impact</span>
+            <span class="tag" onclick="openSim('air')">🏭 Urban Air Pollution</span>
+            <span class="tag" onclick="openSim('diet')">🥗 Diet & Lifestyle</span>
+            <span class="tag" onclick="openSim('carcinogens')">🏗️ Industrial Carcinogens</span>
+        </div>
+    </div>
+</div>
+
+<div id="simulator">
+    <button onclick="goBack()" style="background:var(--primary); color:white; border:none; padding:10px 20px; border-radius:6px; cursor:pointer; font-weight:bold; transition:0.2s; box-shadow:0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px;">⬅ Go Back to Clinical Topics</button>
+
+    <h2 id="simTitle" style="color:var(--primary); margin-top:10px;">PATHOLOGY ANALYSIS</h2>
+
+    <div class="viewer">
+        <canvas id="lungCanvas" width="300" height="300"></canvas>
+    </div>
+
+    <div class="healthbar"><div id="healthFill" class="healthfill"></div></div>
+
+    <div class="controls">
+        <button id="step-healthy" onclick="setExposure('healthy')">Healthy State</button>
+        <button id="step-low" onclick="setExposure('low')">Low Exposure</button>
+        <button id="step-medium" onclick="setExposure('medium')">Medium Exposure</button>
+        <button id="step-high" onclick="setExposure('high')">High Exposure</button>
+    </div>
+
+    <div class="edu-panel">
+        <h3 id="eduHeading" style="color:var(--primary); margin-top:0; border-bottom:2px solid #f0f0f0; padding-bottom:10px; font-size:1.4rem;">Diagnostic Overview</h3>
+        <p id="infoText" style="color:#555; font-size:1.05rem; font-weight:500; line-height:1.6;"></p>
+
+        <div id="detailedSpecs" style="font-size:0.95rem; margin-top:20px;">
+            <div style="background:#fdfdfd; padding:18px; border-radius:8px; margin-bottom:15px; border:1px solid #eee; border-left:4px solid var(--accent); box-shadow:0 2px 5px rgba(0,0,0,0.02);">
+                <h4 style="color:var(--accent); margin:0 0 8px 0; text-transform:uppercase; font-size:0.85rem; letter-spacing:0.05em;">🔬 Cellular Pathogenesis</h4>
+                <p id="specMech" style="color:#444; margin:0; line-height:1.6;"></p>
+            </div>
+            <div style="background:#fdfdfd; padding:18px; border-radius:8px; border:1px solid #eee; border-left:4px solid var(--danger); box-shadow:0 2px 5px rgba(0,0,0,0.02);">
+                <h4 style="color:var(--danger); margin:0 0 8px 0; text-transform:uppercase; font-size:0.85rem; letter-spacing:0.05em;">📉 Long-term Prognosis</h4>
+                <p id="specProg" style="color:#444; margin:0; line-height:1.6;"></p>
+            </div>
+        </div>
+    </div>
+
+    <p id="lockMessage" class="unlock-msg">🔒 Explore Healthy → Low → Medium → High to unlock the Exam.</p>
+    <button id="quizButton" class="quizBtn" onclick="startQuiz()">Take Certification Exam</button>
+</div>
+
+<div id="quizModal">
+    <div class="quiz-content">
+        <h2 id="quizHeader">Certification Exam</h2>
+        <div id="quizBody"></div>
+        <div id="quizResults"></div>
+
+        <div id="nameSection">
+            <h3>🎓 Enter Your Name for the Certificate</h3>
+            <p>Your name will appear exactly as you type it.</p>
+            <div class="name-inputs">
+                <input type="text" id="firstNameInput" placeholder="First Name" maxlength="30">
+                <input type="text" id="lastNameInput" placeholder="Last Name" maxlength="30">
+            </div>
+            <div id="nameError">Please enter both your first and last name.</div>
+        </div>
+
+        <button id="submitQuizBtn" onclick="submitQuiz()" style="background:var(--secondary); color:white; border:none; padding:14px; border-radius:8px; cursor:pointer; font-weight:bold; width:100%; font-size:1rem; transition:0.2s;" onmouseover="this.style.boxShadow='0 4px 15px rgba(39,174,96,0.3)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.boxShadow='none'; this.style.transform='none';">Submit Answers</button>
+        <button id="downloadCertBtn" onclick="generateCertificate()" class="cert-btn">⬇ Download My Certificate</button>
+        <button onclick="closeQuiz()" class="close-quiz">Close [X]</button>
+    </div>
+</div>
+
+<canvas id="certCanvas" width="900" height="650" style="display:none;"></canvas>
+
+<footer style="background: #060e1a; padding: 25px 20px; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; font-family: 'Segoe UI', Tahoma, sans-serif; font-size: 0.85rem; color: #888;">
     <div style="margin-bottom: 6px;">
         <strong style="color: #ddd; letter-spacing: 0.05em;">Global Breath-Link Initiative</strong> &nbsp;|&nbsp; 
         Spearheaded by 
@@ -135,23 +158,18 @@
         &amp; 
         <span style="font-weight: 800; letter-spacing: 0.02em; background: linear-gradient(90deg, #0abde3, #27ae60); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Akhil Nagalla</span>
     </div>
-
     <div>
         📧 <a href="mailto:contact@breathlink.org" style="color: var(--secondary); text-decoration: none; font-weight: 600; transition: 0.2s;" onmouseover="this.style.color='#0abde3'" onmouseout="this.style.color='var(--secondary)'">contact@breathlink.org</a> 
         &nbsp;|&nbsp; &copy; 2026 All Rights Reserved
     </div>
-
 </footer>
 
-    <script src="data.js"></script>
-    <script src="script.js"></script>
+<script src="data.js"></script>
+<script src="script.js"></script>
+<script src="main.js"></script>
 
-<!-- 2. The Hidden Google Translate Engine -->
 <div id="google_translate_element" style="display:none;"></div>
-
-<!-- 3. The Scripts -->
 <script type="text/javascript">
-// Initialize the hidden Google widget
 function googleTranslateElementInit() {
     new google.translate.TranslateElement({
         pageLanguage: 'en',
@@ -160,12 +178,10 @@ function googleTranslateElementInit() {
     }, 'google_translate_element');
 }
 
-// Function to pass your custom dropdown choice to the hidden Google dropdown
 function triggerGoogleTranslate(langCode) {
     const googleSelect = document.querySelector('.goog-te-combo');
     if (googleSelect) {
         googleSelect.value = langCode;
-        // This forces Google to register the change and translate the page
         googleSelect.dispatchEvent(new Event('change')); 
     }
 }

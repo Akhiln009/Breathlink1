@@ -12,6 +12,7 @@
 </head>
 <body>
 
+<!-- Interactive Dynamic Particle Canvas Header Banner -->
 <header id="heroHeader">
     <canvas id="headerParticleCanvas"></canvas>
     <div class="header-foreground">
@@ -25,8 +26,10 @@
     <a href="awareness.html">🫁 Awareness Simulator</a>
     <a href="detection.html">🔬 AI Acoustic Biopsy</a>
     <a href="treatment.html">💊 Treatment Plan</a>
+    <!-- Distinct Kids Zone Button -->
     <a href="kids.html" class="kids-nav-btn">🌈 Kids Zone</a>
     
+    <!-- Clean Gear Settings Menu Layout Container -->
     <div class="settings-container">
         <button class="settings-gear-btn" id="gearBtn" onclick="toggleSettingsMenu(event)">⚙️ Settings</button>
         <div class="settings-dropdown" id="settingsDropdown">
@@ -50,8 +53,10 @@
     </div>
 </div>
 
+<!-- Interactive Notification Bubble Hook -->
 <div id="chat-alert-bubble">👋 Need help? Ask me here!</div>
 
+<!-- Chatbot Container -->
 <div id="chat-container">
     <div id="chat-header">
         <span>Breathlink Support</span>
@@ -71,6 +76,7 @@
     <section>
         <div class="grid" id="portalGrid">
             
+            <!-- Card 1 -->
             <div class="card" onclick="window.location.href='awareness.html'" style="cursor:pointer;">
                 <div class="card-meta"><span>⏱️ 5 min learn</span><span>⭐ Certification</span></div>
                 <h3>1. Awareness: Breath-Wise Gateway</h3>
@@ -88,6 +94,7 @@
                 </div>
             </div>
 
+            <!-- Card 2 -->
             <div class="card" onclick="window.location.href='detection.html'" style="cursor:pointer;">
                 <div class="card-meta"><span>🎙️ Audio Mic Required</span><span>🔬 AI Diagnostic</span></div>
                 <h3>2. Detection: AI Acoustic Biopsy</h3>
@@ -104,6 +111,7 @@
                 </div>
             </div>
 
+            <!-- Card 3 -->
             <div class="card treatment-card" onclick="window.location.href='treatment.html'" style="cursor:pointer;">
                 <div class="card-meta"><span>📍 Maps Integrated</span><span>💊 Doctor Ready</span></div>
                 <h3>3. Treatment: Personalized Care Pathway</h3>
@@ -139,6 +147,7 @@
     </section>
 </div>
 
+<!-- Hidden Canvas Required by script.js Certificate System -->
 <canvas id="certCanvas" width="900" height="650" style="display:none;"></canvas>
 
 <footer style="background: #060e1a; padding: 25px 20px; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; font-family: 'Segoe UI', Tahoma, sans-serif; font-size: 0.85rem; color: #888;">
@@ -166,6 +175,7 @@ function googleTranslateElementInit() {
     }, 'google_translate_element');
 }
 
+// Function to pass translation choices safely
 function triggerGoogleTranslate(langCode) {
     const googleSelect = document.querySelector('.goog-te-combo');
     if (googleSelect) {
@@ -176,6 +186,7 @@ function triggerGoogleTranslate(langCode) {
 </script>
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
+<!-- Scripts Integration -->
 <script src="data.js"></script>
 <script src="script.js"></script>
 <script src="main.js"></script>

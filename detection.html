@@ -136,33 +136,62 @@
 </head>
 <body>
 
-<header>
-    <h1>Global Breath-Link Initiative</h1>
-    <p>Democratizing Lung Health: A Triage-to-Treatment Ecosystem</p>
+<!-- Animated Particle Background Header with Core Identity Fields Included -->
+<header id="heroHeader">
+    <canvas id="headerParticleCanvas"></canvas>
+    <div class="header-foreground">
+        <h1>Global Breath-Link Initiative</h1>
+        <p>Democratizing Lung Health: A Triage-to-Treatment Ecosystem</p>
+    </div>
 </header>
 
-<div style="background:#f8f9fa; border-bottom:1px solid #ddd; padding:15px 20px; display:flex; gap:15px; flex-wrap:wrap; justify-content:center;">
-    <a href="index.html"     style="color:#555; text-decoration:none; padding:8px 16px; border-radius:6px; font-size:0.9rem; font-weight: bold; transition: 0.2s;" onmouseover="this.style.background='#eee'" onmouseout="this.style.background='transparent'">🏠 Home</a>
-    <a href="awareness.html"     style="color:#555; text-decoration:none; padding:8px 16px; border-radius:6px; font-size:0.9rem; font-weight: bold; transition: 0.2s;" onmouseover="this.style.background='#eee'" onmouseout="this.style.background='transparent'">🫁 Awareness Simulator</a>
-    <a href="detection.html" style="color:var(--primary); text-decoration:none; padding:8px 16px; border-radius:6px; font-size:0.9rem; font-weight: bold; background:#e8f4fd; border:1px solid #b8daff;">🔬 AI Acoustic Biopsy</a>
-    <a href="treatment.html" style="color:#555; text-decoration:none; padding:8px 16px; border-radius:6px; font-size:0.9rem; font-weight: bold; transition: 0.2s;" onmouseover="this.style.background='#eee'" onmouseout="this.style.background='transparent'">💊 Treatment Plan</a>
-<!-- Distinct Kids Zone Button -->
+<div class="top-nav">
+    <a href="index.html">🏠 Home</a>
+    <a href="awareness.html">🫁 Awareness Simulator</a>
+    <a href="detection.html" class="active">🔬 AI Acoustic Biopsy</a>
+    <a href="treatment.html">💊 Treatment Plan</a>
     <a href="kids.html" class="kids-nav-btn">🌈 Kids Zone</a>
-    <div class="custom-translator">
-    <select id="custom-language-select" onchange="triggerGoogleTranslate(this.value)">
-        <option value="en">EN - English</option>
-        <option value="es">ES - Español</option>
-        <option value="zh-CN">ZH - 中文</option>
-        <option value="hi">HI - हिन्दी</option>
-        <option value="ar">AR - العربية</option>
-        <option value="pt">PT - Português</option>
-        <option value="bn">BN - বাংলা</option>
-        <option value="ru">RU - Русский</option>
-        <option value="fr">FR - Français</option>
-        <option value="de">DE - Deutsch</option>
-    </select>
+    
+    <!-- Clean Gear Settings Menu Layout Container -->
+    <div class="settings-container">
+        <button class="settings-gear-btn" id="gearBtn" onclick="toggleSettingsMenu(event)">⚙️ Settings</button>
+        <div class="settings-dropdown" id="settingsDropdown">
+            <label for="custom-language-select">🌐 Language:</label>
+            <select id="custom-language-select" onchange="triggerGoogleTranslate(this.value)">
+                <option value="en">EN - English</option>
+                <option value="es">ES - Español</option>
+                <option value="zh-CN">ZH - 中文</option>
+                <option value="hi">HI - हिन्दी</option>
+                <option value="ar">AR - العربية</option>
+                <option value="pt">PT - Português</option>
+                <option value="bn">BN - বাংলা</option>
+                <option value="ru">RU - Русский</option>
+                <option value="fr">FR - Français</option>
+                <option value="de">DE - Deutsch</option>
+            </select>
+            
+            <label style="margin-top: 8px;">🎨 Layout Theme:</label>
+            <button class="theme-toggle-btn" onclick="toggleDarkModeTheme()">🌓 Toggle Dark Mode</button>
+        </div>
+    </div>
 </div>
+
+<!-- Support Chat Alert Systems -->
+<div id="chat-alert-bubble">👋 Need help? Ask me here!</div>
+<div id="chat-container">
+    <div id="chat-header">
+        <span>Breathlink Support</span>
+        <button id="close-btn">−</button>
+    </div>
+    <div id="chat-box">
+        <div class="message bot-message">Hello! Welcome to the AI Acoustic Biopsy setup. How can I help you extract biomarkers today?</div>
+    </div>
+    <div id="chat-input-area">
+        <input type="text" id="user-input" placeholder="Ask a question..." />
+        <button id="send-btn">Send</button>
+    </div>
 </div>
+<button id="chat-toggle-btn">💬 Help</button>
 
 <div class="container" id="mainContent">
     <div class="detection-wrap">
@@ -353,28 +382,13 @@
     </div>
 </div>
 
-<footer style="background: #060e1a; padding: 25px 20px; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; font-family: 'Segoe UI', Tahoma, sans-serif; font-size: 0.85rem; color: #888;">
-    
-    <div style="margin-bottom: 6px;">
-        <strong style="color: #ddd; letter-spacing: 0.05em;">Global Breath-Link Initiative</strong> &nbsp;|&nbsp; 
-        Spearheaded by 
-        <span style="font-weight: 800; letter-spacing: 0.02em; background: linear-gradient(90deg, #27ae60, #0abde3); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Ashrita Nagalla</span> 
-        &amp; 
-        <span style="font-weight: 800; letter-spacing: 0.02em; background: linear-gradient(90deg, #0abde3, #27ae60); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Akhil Nagalla</span>
-    </div>
+<div id="google_translate_element" style="display:none;"></div>
 
-    <div>
-        📧 <a href="mailto:contact@breathlink.org" style="color: var(--secondary); text-decoration: none; font-weight: 600; transition: 0.2s;" onmouseover="this.style.color='#0abde3'" onmouseout="this.style.color='var(--secondary)'">contact@breathlink.org</a> 
-        &nbsp;|&nbsp; &copy; 2026 All Rights Reserved
-    </div>
-
-</footer>
+<script src="data.js"></script>
+<script src="script.js"></script>
+<script src="main.js"></script>
 
 <script>
-// --- JAVASCRIPT REMAINS UNCHANGED (LOGIC & API) ---
-// Note: Only minor color hex updates were made within innerHTML strings to ensure 
-// text remains readable against the new light theme backgrounds.
-
 const REFERENCE_LIBRARY = [
     { label:"Healthy",              color:"#27ae60", sc:3200, bw:2400, zcr:0.28, rms:0.55, ro:5800, ev:0.12 },
     { label:"Healthy",              color:"#27ae60", sc:3500, bw:2600, zcr:0.30, rms:0.50, ro:6100, ev:0.10 },
@@ -553,6 +567,7 @@ function extractFeatures() {
 
         let ce=0;
         for (let i=0;i<s.freq.length;i++) {
+            box=s.freq[i];
             ce+=s.freq[i];
             if (ce>=totalE*0.85) { sumRO+=(i*(SR/fftSize)); break; }
         }
@@ -674,7 +689,7 @@ function runAnalysis() {
     const lines = [
         ['info', 'Loading cough audio buffer...'],
         ['ok',   'FFT complete — 2048 frequency bins extracted'],
-        ['ok',   `RMS Energy          → ${af.raw?.rms || af.rms.toFixed(4)} (amplitude of cough force)`],
+        ['ok',   `RMS Energy        → ${af.raw?.rms || af.rms.toFixed(4)} (amplitude of cough force)`],
         ['ok',   `Zero Crossing Rate  → ${af.raw?.zcr || af.zcr.toFixed(4)} (obstructive=low, restrictive=high)`],
         ['ok',   `Spectral Centroid   → ${af.sc} Hz (healthy > symptomatic per COUGHVID research)`],
         ['ok',   `Spectral Bandwidth  → ${af.bw} Hz (reference range: 1300–3200 Hz)`],
@@ -699,12 +714,9 @@ function runAnalysis() {
 function showResults() {
     goTo(4);
     const score = computeScore();
-
-    // ── SAVE SCORE TO LOCALSTORAGE SO TREATMENT.HTML CAN READ IT ──
     localStorage.setItem('riskScore', score);
 
     const knn   = lastKNN;
-
     let riskColor, riskDesc;
     let riskWord = document.getElementById('riskWord');
 
@@ -734,7 +746,7 @@ function showResults() {
         { name:'Spectral Centroid', val: audioFeatures.sc+'Hz',  pct: Math.min(audioFeatures.sc/maxSC*100,100),        color:'var(--primary)' },
         { name:'Spectral Bandwidth',val: audioFeatures.bw+'Hz',  pct: Math.min(audioFeatures.bw/maxBW*100,100),        color:'var(--secondary)' },
         { name:'Spectral Rolloff',  val: audioFeatures.ro+'Hz',  pct: Math.min(audioFeatures.ro/maxRO*100,100),        color:'var(--accent)' },
-        { name:'ZCR',               val: audioFeatures.zcr.toFixed(3), pct: Math.min(audioFeatures.zcr*250,100),       color:'#9b59b6' },
+        { name:'ZCR',                val: audioFeatures.zcr.toFixed(3), pct: Math.min(audioFeatures.zcr*250,100),       color:'#9b59b6' },
         { name:'RMS Energy',        val: audioFeatures.rms.toFixed(3), pct: Math.min(audioFeatures.rms*100,100),       color:'var(--secondary)' },
         { name:'Cough Events',      val: audioFeatures.coughCount,     pct: Math.min(audioFeatures.coughCount*25,100), color:'var(--danger)' },
     ];
@@ -813,9 +825,7 @@ function showResults() {
         </div>`;
 }
 
-function goToTreatment() {
-    window.location.href = 'treatment.html';
-}
+function goToTreatment() { window.location.href = 'treatment.html'; }
 
 function goTo(n) {
     document.querySelectorAll('.det-panel').forEach((p,i) => p.classList.toggle('active', i===n-1));
@@ -851,15 +861,6 @@ function downloadSummary() {
 ================================================
 Date: ${new Date().toLocaleDateString()}
 Tool: Global Breath-Link Initiative (Prototype v0.1)
-Proposed by: Ashrita Nagalla & Akhil Nagalla
-
-METHODOLOGY
------------
-This tool extracts real acoustic features from cough audio using
-the Web Audio API (FFT analysis), then compares them against a
-reference library derived from published COUGHVID & Coswara
-respiratory research datasets using K-Nearest Neighbor (KNN)
-classification.
 
 PATIENT PROFILE
 ---------------
@@ -868,10 +869,9 @@ Smoking History: ${smoke}
 
 ACOUSTIC ANALYSIS
 -----------------
-Spectral Centroid:   ${audioFeatures.sc} Hz  (healthy baseline ~3000–3800 Hz)
-Spectral Bandwidth:  ${audioFeatures.bw} Hz  (reference range: 1300–3200 Hz)
-Spectral Rolloff:    ${audioFeatures.ro} Hz
-Zero Crossing Rate:  ${audioFeatures.zcr?.toFixed(4)}  (low=obstructive, high=restrictive)
+Spectral Centroid:   ${audioFeatures.sc} Hz
+Spectral Bandwidth:  ${audioFeatures.bw} Hz
+Zero Crossing Rate:  ${audioFeatures.zcr?.toFixed(4)}
 RMS Energy:          ${audioFeatures.rms?.toFixed(4)}
 Cough Events:        ${audioFeatures.coughCount}
 
@@ -879,16 +879,7 @@ KNN CLASSIFICATION
 ------------------
 Result:      ${knnLabel}
 Confidence:  ${knnConf}%
-Triage Score: ${score}/100 — ${risk}
-
-DISCLAIMER
-----------
-This is a prototype pre-screening tool, NOT a medical diagnosis.
-Please share this with a qualified healthcare provider.
-
-References: Orlandic et al. 2021 (COUGHVID, Nature Scientific Data);
-            Naveenkumar et al. 2023 (Springer IACC); 
-            Rudraraju et al. 2020 (Informatics in Medicine Unlocked)`;
+Triage Score: ${score}/100 — ${risk}`;
 
     const blob = new Blob([txt], { type:'text/plain' });
     const a = document.createElement('a');
@@ -898,13 +889,8 @@ References: Orlandic et al. 2021 (COUGHVID, Nature Scientific Data);
 }
 </script>
 
-
-<!-- 2. The Hidden Google Translate Engine -->
 <div id="google_translate_element" style="display:none;"></div>
-
-<!-- 3. The Scripts -->
 <script type="text/javascript">
-// Initialize the hidden Google widget
 function googleTranslateElementInit() {
     new google.translate.TranslateElement({
         pageLanguage: 'en',
@@ -913,12 +899,10 @@ function googleTranslateElementInit() {
     }, 'google_translate_element');
 }
 
-// Function to pass your custom dropdown choice to the hidden Google dropdown
 function triggerGoogleTranslate(langCode) {
     const googleSelect = document.querySelector('.goog-te-combo');
     if (googleSelect) {
         googleSelect.value = langCode;
-        // This forces Google to register the change and translate the page
         googleSelect.dispatchEvent(new Event('change')); 
     }
 }
