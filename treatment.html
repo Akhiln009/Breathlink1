@@ -8,6 +8,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Treatment Plan — Global Breath-Link</title>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-P5VRRW606X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag()){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-P5VRRW606X');
+</script>
+
 <link rel="stylesheet" href="style.css">
 <style>
 /* TREATMENT SPECIFIC STYLES - LIGHT THEME */
@@ -306,7 +316,6 @@
                     const successMsg = document.getElementById('email-success');
                     const inputContainer = document.getElementById('email-input-container');
                 
-                    // Standard email validation regex
                     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
                 
                     if (emailPattern.test(emailInput)) {
@@ -401,86 +410,102 @@ let riskColor, riskWord, riskDesc, steps, lifestyle;
 
 if (score === null) {
     document.getElementById('noScoreWarning').style.display = 'block';
-    score = 0;
-    riskColor = '#666'; riskWord = 'NO DATA';
-    riskDesc = 'No cough analysis found. Please complete the AI Acoustic Biopsy first.';
-    steps = ['Complete the AI Acoustic Biopsy on the Detection page to get personalised clinical steps.'];
-    lifestyle = [{ icon:'🔬', text:'Run the AI Acoustic Biopsy — record your cough to get a real triage score.' }];
-} else if (score < 25) {
-    riskColor = '#27ae60'; riskWord = 'LOW RISK';
-    riskDesc = 'Your acoustic profile closely matches healthy cough patterns. Continue monitoring and maintain a clean air environment.';
+    document.getElementById('score').textContent = '--';
+    
+    riskColor = '#e74c3c'; 
+    riskWord = 'NO BIOPSY DATA';
+    riskDesc = 'Please complete your pre-screening analysis to unlock personalized clinical paths.';
+    
     steps = [
-        'Schedule a routine GP check-up within the next 12 months.',
-        'Monitor for any new respiratory symptoms — persistent cough, breathlessness, or chest tightness.',
-        'Ensure your home radon levels are tested if you live in a high-risk geological area.',
-        'Maintain your healthy lifestyle and revisit the AI screener annually.',
+        'Go to Stage 2: AI Acoustic Biopsy page.',
+        'Allow microphone hardware access in your web browser.',
+        'Perform 3 forced coughs next to your device mic to log biometric data.',
+        'Return to this Treatment Plan page to view your calculated care steps.'
     ];
+    
     lifestyle = [
-        { icon:'🌿', text:'Maintain a clean indoor air environment — use air purifiers where possible.' },
-        { icon:'🏃', text:'Exercise regularly — 150 minutes of moderate aerobic activity per week supports lung health.' },
-        { icon:'🥗', text:'Eat a diet rich in Vitamins A, C, and E to maintain your antioxidant shield.' },
-        { icon:'🚭', text:'Avoid tobacco smoke — even passive exposure raises risk significantly.' },
-    ];
-} else if (score < 50) {
-    riskColor = '#f39c12'; riskWord = 'MILD CONCERN';
-    riskDesc = 'Some acoustic markers suggest mild airway changes. A routine conversation with your GP and some basic tests are recommended.';
-    steps = [
-        'Book an appointment with your GP within the next 4–6 weeks.',
-        'Ask about spirometry (lung function) testing to baseline your airway capacity.',
-        'Discuss your cough history, smoking status, and occupational exposures.',
-        'Consider a chest X-ray if symptoms persist for more than 3 weeks.',
-        'Review and reduce known environmental risk factors.',
-    ];
-    lifestyle = [
-        { icon:'🚭', text:'Quit or reduce smoking — even cutting down significantly reduces lung cancer risk.' },
-        { icon:'😷', text:'Wear an N95 mask in dusty or polluted environments.' },
-        { icon:'🥦', text:'Increase antioxidant intake — broccoli, citrus, nuts, and leafy greens protect airway lining.' },
-        { icon:'💧', text:'Stay well hydrated — helps maintain mucus clearance and ciliary function.' },
-        { icon:'🏠', text:'Test your home for radon gas, especially if you live in a basement or ground-floor unit.' },
-    ];
-} else if (score < 75) {
-    riskColor = '#e67e22'; riskWord = 'MODERATE RISK';
-    riskDesc = 'Your acoustic and symptom profile shows notable indicators. A follow-up with a healthcare provider is strongly advised.';
-    steps = [
-        'Book an urgent GP appointment within 1–2 weeks.',
-        'Request spirometry testing (lung function measurement).',
-        'Ask for a referral to a pulmonologist (lung specialist) for further evaluation.',
-        'Discuss low-dose CT (LDCT) chest imaging eligibility with your doctor.',
-        'Review occupational history — asbestos, silica, or chemical exposures should be disclosed.',
-        'Bring your BreathLink doctor summary printout to your appointment.',
-    ];
-    lifestyle = [
-        { icon:'🚭', text:'Stop smoking immediately — this is the single most impactful action you can take.' },
-        { icon:'🏠', text:'Improve indoor air quality — eliminate cookfire smoke, use ventilation, test for radon.' },
-        { icon:'📋', text:'Keep a symptom diary — record cough frequency, sputum, and breathlessness each day.' },
-        { icon:'🏥', text:'Ask about pulmonary rehabilitation — evidence-based exercise programmes reduce symptoms significantly.' },
-        { icon:'🧘', text:'Manage stress — chronic stress worsens immune function and respiratory symptoms.' },
-        { icon:'💊', text:'Do not self-medicate with inhalers — ensure diagnosis is confirmed before treatment.' },
+        { icon: '🔬', text: 'Run the AI Acoustic Biopsy first — record your cough to generate a real tracker index score.' }
     ];
 } else {
-    riskColor = '#e74c3c'; riskWord = 'ELEVATED RISK';
-    riskDesc = 'Multiple acoustic risk markers detected alongside significant symptom burden. Please discuss lung screening with a doctor promptly.';
-    steps = [
-        '⚠️ Seek a GP or urgent care appointment within the next 1–3 days.',
-        'Request low-dose CT (LDCT) chest scan — standard of care for high-risk individuals.',
-        'Demand urgent referral to a pulmonologist or respiratory specialist.',
-        'Disclose full exposure history: smoking (pack-years), occupation, asbestos, radon.',
-        'Discuss Alpha-1 Antitrypsin blood test if family history of lung disease exists.',
-        'If haemoptysis (coughing blood) is present, go to Emergency Department immediately.',
-        'Bring your BreathLink doctor summary and acoustic report to every appointment.',
-    ];
-    lifestyle = [
-        { icon:'🚭', text:'Stop smoking today — contact a cessation clinic or use NRT (nicotine replacement therapy).' },
-        { icon:'🏥', text:'Attend all scheduled follow-ups — do not delay or cancel clinical appointments.' },
-        { icon:'😷', text:'Avoid all occupational and environmental pollutants — use respirator-grade protection if unavoidable.' },
-        { icon:'🥗', text:'Focus on nutrition — malnutrition accelerates lung decline in chronic disease.' },
-        { icon:'💪', text:'Ask about pulmonary rehabilitation — even high-risk patients benefit from supervised exercise.' },
-        { icon:'👨‍👩‍👧', text:'Inform close family — first-degree relatives may also benefit from screening.' },
-    ];
+    document.getElementById('noScoreWarning').style.display = 'none';
+    
+    if (score < 25) {
+        riskColor = '#27ae60'; riskWord = 'LOW RISK';
+        riskDesc = 'Your acoustic profile closely matches healthy cough patterns. Continue monitoring and maintain a clean air environment.';
+        steps = [
+            'Schedule a routine GP check-up within the next 12 months.',
+            'Monitor for any new respiratory symptoms — persistent cough, breathlessness, or chest tightness.',
+            'Ensure your home radon levels are tested if you live in a high-risk geological area.',
+            'Maintain your healthy lifestyle and revisit the AI screener annually.',
+        ];
+        lifestyle = [
+            { icon:'🌿', text:'Maintain a clean indoor air environment — use air purifiers where possible.' },
+            { icon:'🏃', text:'Exercise regularly — 150 minutes of moderate aerobic activity per week supports lung health.' },
+            { icon:'🥗', text:'Eat a diet rich in Vitamins A, C, and E to maintain your antioxidant shield.' },
+            { icon:'🚭', text:'Avoid tobacco smoke — even passive exposure raises risk significantly.' },
+        ];
+    } else if (score < 50) {
+        riskColor = '#f39c12'; riskWord = 'MILD CONCERN';
+        riskDesc = 'Some acoustic markers suggest mild airway changes. A routine conversation with your GP and some basic tests are recommended.';
+        steps = [
+            'Book an appointment with your GP within the next 4–6 weeks.',
+            'Ask about spirometry (lung function) testing to baseline your airway capacity.',
+            'Discuss your cough history, smoking status, and occupational exposures.',
+            'Consider a chest X-ray if symptoms persist for more than 3 weeks.',
+            'Review and reduce known environmental risk factors.',
+        ];
+        lifestyle = [
+            { icon:'🚭', text:'Quit or reduce smoking — even cutting down significantly reduces lung cancer risk.' },
+            { icon:'😷', text:'Wear an N95 mask in dusty or polluted environments.' },
+            { icon:'🥦', text:'Increase antioxidant intake — broccoli, citrus, nuts, and leafy greens protect airway lining.' },
+            { icon:'💧', text:'Stay well hydrated — helps maintain mucus clearance and ciliary function.' },
+            { icon:'🏠', text:'Test your home for radon gas, especially if you live in a basement or ground-floor unit.' },
+        ];
+    } else if (score < 75) {
+        riskColor = '#e67e22'; riskWord = 'MODERATE RISK';
+        riskDesc = 'Your acoustic and symptom profile shows notable indicators. A follow-up with a healthcare provider is strongly advised.';
+        steps = [
+            'Book an urgent GP appointment within 1–2 weeks.',
+            'Request spirometry testing (lung function measurement).',
+            'Ask for a referral to a pulmonologist (lung specialist) for further evaluation.',
+            'Discuss low-dose CT (LDCT) chest imaging eligibility with your doctor.',
+            'Review occupational history — asbestos, silica, or chemical exposures should be disclosed.',
+            'Bring your BreathLink doctor summary printout to your appointment.',
+        ];
+        lifestyle = [
+            { icon:'🚭', text:'Stop smoking immediately — this is the single most impactful action you can take.' },
+            { icon:'🏠', text:'Improve indoor air quality — eliminate cookfire smoke, use ventilation, test for radon.' },
+            { icon:'📋', text:'Keep a symptom diary — record cough frequency, sputum, and breathlessness each day.' },
+            { icon:'🏥', text:'Ask about pulmonary rehabilitation — evidence-based exercise programmes reduce symptoms significantly.' },
+            { icon:'🧘', text:'Manage stress — chronic stress worsens immune function and respiratory symptoms.' },
+            { icon:'💊', text:'Do not self-medicate with inhalers — ensure diagnosis is confirmed before treatment.' },
+        ];
+    } else {
+        riskColor = '#e74c3c'; riskWord = 'ELEVATED RISK';
+        riskDesc = 'Multiple acoustic risk markers detected alongside significant symptom burden. Please discuss lung screening with a doctor promptly.';
+        steps = [
+            '⚠️ Seek a GP or urgent care appointment within the next 1–3 days.',
+            'Request low-dose CT (LDCT) chest scan — standard of care for high-risk individuals.',
+            'Demand urgent referral to a pulmonologist or respiratory specialist.',
+            'Disclose full exposure history: smoking (pack-years), occupation, asbestos, radon.',
+            'Discuss Alpha-1 Antitrypsin blood test if family history of lung disease exists.',
+            'If haemoptysis (coughing blood) is present, go to Emergency Department immediately.',
+            'Bring your BreathLink doctor summary and acoustic report to every appointment.',
+        ];
+        lifestyle = [
+            { icon:'🚭', text:'Stop smoking today — contact a cessation clinic or use NRT (nicotine replacement therapy).' },
+            { icon:'🏥', text:'Attend all scheduled follow-ups — do not delay or cancel clinical appointments.' },
+            { icon:'😷', text:'Avoid all occupational and environmental pollutants — use respirator-grade protection if unavoidable.' },
+            { icon:'🥗', text:'Focus on nutrition — malnutrition accelerates lung decline in chronic disease.' },
+            { icon:'💪', text:'Ask about pulmonary rehabilitation — even high-risk patients benefit from supervised exercise.' },
+            { icon:'👨‍👩‍👧', text:'Inform close family — first-degree relatives may also benefit from screening.' },
+        ];
+    }
+    
+    document.getElementById('score').textContent = score;
 }
 
-// Render dynamic contents onto templates
-document.getElementById('score').textContent = rawScore !== null ? score : '--';
+// Render values onto templates
 document.getElementById('score').style.color = riskColor;
 document.getElementById('riskBadge').textContent = riskWord;
 document.getElementById('riskBadge').style.color = riskColor;
@@ -495,16 +520,11 @@ document.getElementById('lifestyleList').innerHTML = lifestyle.map(l => `
     <li><span class="ls-icon">${l.icon}</span><span>${l.text}</span></li>`).join('');
 
 document.getElementById('summaryTable').innerHTML = `
-    <div class="summary-row"><span class="key">Triage Score</span><span class="val" style="color:${riskColor};font-weight:700;">${rawScore !== null ? score : 'N/A'}/100 — ${riskWord}</span></div>
+    <div class="summary-row"><span class="key">Triage Score</span><span class="val" style="color:${riskColor};font-weight:700;">${rawScore !== null ? score + '/100' : 'N/A — Run Biopsy First'}</span></div>
     <div class="summary-row"><span class="key">Assessment</span><span class="val">${riskDesc}</span></div>
-    <div class="summary-row"><span class="key">Clinical Actions</span><span class="val">${steps.length} steps recommended</span></div>
+    <div class="summary-row"><span class="key">Clinical Actions</span><span class="val">${rawScore !== null ? steps.length + ' steps recommended' : 'Biopsy Pending'}</span></div>
     <div class="summary-row"><span class="key">Lifestyle Changes</span><span class="val">${lifestyle.length} changes identified</span></div>
     <div class="summary-row"><span class="key">Date</span><span class="val">${new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'})}</span></div>`;
-
-// Page runtime entry initiation hooks
-window.addEventListener('DOMContentLoaded', () => {
-    findCare();
-});
 
 // ══════════════════════════════════════════
 // DOWNLOAD REPORT
@@ -542,27 +562,6 @@ Proposed by: Ashrita Nagalla & Akhil Nagalla
     a.click();
 }
 </script>
-
-<script>
-  window.REQUIRED_CODE_ERROR_MESSAGE = 'Please choose a country code';
-  window.LOCALE = 'en';
-  window.EMAIL_INVALID_MESSAGE = window.SMS_INVALID_MESSAGE = "The information provided is invalid. Please review the field format and try again.";
-  window.REQUIRED_ERROR_MESSAGE = "This field cannot be left blank. ";
-  window.GENERIC_INVALID_MESSAGE = "The information provided is invalid. Please review the field format and try again.";
-  window.INVALID_NUMBER = "The information provided is invalid. Please review the field format and try again.";
-  window.INVALID_DATE = "Please enter a valid date";
-  window.REQUIRED_MULTISELECT_MESSAGE = 'Please select at least 1 option';
-  window.translation = {
-    common: {
-      selectedList: '{quantity} list selected',
-      selectedLists: '{quantity} lists selected',
-      selectedOption: '{quantity} selected',
-      selectedOptions: '{quantity} selected',
-    }
-  };
-  var AUTOHIDE = Boolean(0);
-</script>
-<script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
 
 <div id="google_translate_element" style="display:none;"></div>
 <script type="text/javascript">

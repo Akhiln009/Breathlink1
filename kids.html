@@ -4,6 +4,16 @@
 <meta http-equiv="Expires" content="0">
 <html lang="en">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-P5VRRW606X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-P5VRRW606X');
+</script>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BreathLink Kids — Learn About Your Lungs!</title>
@@ -852,7 +862,6 @@ let currentQ = 0;
 let quizScore = 0;
 let answered = false;
 
-// Fisher-Yates Shuffling Core Algorithm
 function shuffleQuestions(array) {
   let ShuffledCopy = [...array];
   for (let i = ShuffledCopy.length - 1; i > 0; i--) {
@@ -863,7 +872,6 @@ function shuffleQuestions(array) {
 }
 
 function initializeQuiz() {
-  // Shuffles a clone of the pool so data never degrades or maps identically twice
   activeQuestions = shuffleQuestions(MASTER_QUESTIONS);
   currentQ = 0;
   quizScore = 0;
@@ -1074,7 +1082,6 @@ function spawnStars(count) {
   }
 }
 
-// Run initial shuffler loop state before question loading hooks execute
 initializeQuiz();
 loadQuestion();
 </script>
