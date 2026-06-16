@@ -50,22 +50,6 @@
     </div>
 </div>
 
-<div id="chat-alert-bubble">👋 Need help? Ask me here!</div>
-<div id="chat-container">
-    <div id="chat-header">
-        <span>Breathlink Support</span>
-        <button id="close-btn">−</button>
-    </div>
-    <div id="chat-box">
-        <div class="message bot-message">Hello! Need assistance navigating the pathology simulator or opening the exam logs?</div>
-    </div>
-    <div id="chat-input-area">
-        <input type="text" id="user-input" placeholder="Ask a question..." />
-        <button id="send-btn">Send</button>
-    </div>
-</div>
-<button id="chat-toggle-btn">💬 Help</button>
-
 <div class="container" id="mainContent">
     <div style="text-align:center; margin-bottom:40px; padding-top:10px;">
         <div style="display:inline-block; background:#e8f4fd; border:1px solid var(--primary); border-radius:20px; padding:6px 18px; font-size:0.8rem; font-weight: bold; color:var(--primary); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:16px;">ENVIRONMENTAL RISK ANALYSIS</div>
@@ -82,7 +66,7 @@
             <span class="tag" onclick="openSim('radiation')">⚡ Ionizing Radiation</span>
             <span class="tag" onclick="openSim('alcohol')">🍷 Alcohol Impact</span>
             <span class="tag" onclick="openSim('air')">🏭 Urban Air Pollution</span>
-            <span class="tag" onclick="openSim('diet')">🥗 Diet & Lifestyle</span>
+            <span class="tag" onclick="openSim('diet')">🥗 Diet &amp; Lifestyle</span>
             <span class="tag" onclick="openSim('carcinogens')">🏗️ Industrial Carcinogens</span>
         </div>
     </div>
@@ -150,7 +134,7 @@
 
 <canvas id="certCanvas" width="900" height="650" style="display:none;"></canvas>
 
-<footer style="background: #060e1a; padding: 25px 20px; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; font-family: 'Segoe UI', Tahoma, sans-serif; font-size: 0.85rem; color: #888;">
+<footer style="background: #060e1a; padding: 25px 20px; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; font-family: 'Segoe UI', Tahoma, sans-serif; font-size: 0.85rem; color: #888; margin-top: 40px;">
     <div style="margin-bottom: 6px;">
         <strong style="color: #ddd; letter-spacing: 0.05em;">Global Breath-Link Initiative</strong> &nbsp;|&nbsp; 
         Spearheaded by 
@@ -160,7 +144,7 @@
     </div>
     <div>
         📧 <a href="mailto:contact@breathlink.org" style="color: var(--secondary); text-decoration: none; font-weight: 600; transition: 0.2s;" onmouseover="this.style.color='#0abde3'" onmouseout="this.style.color='var(--secondary)'">contact@breathlink.org</a> 
-        &nbsp;|&nbsp; &copy; 2026 All Rights Reserved
+         | &copy; 2026 All Rights Reserved
     </div>
 </footer>
 
@@ -178,6 +162,7 @@ function googleTranslateElementInit() {
     }, 'google_translate_element');
 }
 
+// Function to pass translation choices safely
 function triggerGoogleTranslate(langCode) {
     const googleSelect = document.querySelector('.goog-te-combo');
     if (googleSelect) {
@@ -189,4 +174,5 @@ function triggerGoogleTranslate(langCode) {
 <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 </body>
+</html>
 </html>

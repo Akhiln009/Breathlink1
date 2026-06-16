@@ -145,6 +145,7 @@
 </head>
 <body>
 
+<!-- Animated Particle Background Header with Core Identity Fields Included -->
 <header id="heroHeader">
     <canvas id="headerParticleCanvas"></canvas>
     <div class="header-foreground">
@@ -160,6 +161,7 @@
     <a href="treatment.html">💊 Treatment Plan</a>
     <a href="kids.html" class="kids-nav-btn">🌈 Kids Zone</a>
     
+    <!-- Clean Gear Settings Menu Layout Container -->
     <div class="settings-container">
         <button class="settings-gear-btn" id="gearBtn" onclick="toggleSettingsMenu(event)">⚙️ Settings</button>
         <div class="settings-dropdown" id="settingsDropdown">
@@ -182,22 +184,6 @@
         </div>
     </div>
 </div>
-
-<div id="chat-alert-bubble">👋 Need help? Ask me here!</div>
-<div id="chat-container">
-    <div id="chat-header">
-        <span>Breathlink Support</span>
-        <button id="close-btn">−</button>
-    </div>
-    <div id="chat-box">
-        <div class="message bot-message">Hello! Welcome to the AI Acoustic Biopsy setup. How can I help you extract biomarkers today?</div>
-    </div>
-    <div id="chat-input-area">
-        <input type="text" id="user-input" placeholder="Ask a question..." />
-        <button id="send-btn">Send</button>
-    </div>
-</div>
-<button id="chat-toggle-btn">💬 Help</button>
 
 <div class="container" id="mainContent">
     <div class="detection-wrap">
@@ -387,6 +373,20 @@
 
     </div>
 </div>
+
+<footer style="background: #060e1a; padding: 25px 20px; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; font-family: 'Segoe UI', Tahoma, sans-serif; font-size: 0.85rem; color: #888; margin-top: 40px;">
+    <div style="margin-bottom: 6px;">
+        <strong style="color: #ddd; letter-spacing: 0.05em;">Global Breath-Link Initiative</strong> &nbsp;|&nbsp; 
+        Spearheaded by 
+        <span style="font-weight: 800; letter-spacing: 0.02em; background: linear-gradient(90deg, #27ae60, #0abde3); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Ashrita Nagalla</span> 
+        &amp; 
+        <span style="font-weight: 800; letter-spacing: 0.02em; background: linear-gradient(90deg, #0abde3, #27ae60); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Akhil Nagalla</span>
+    </div>
+    <div>
+        📧 <a href="mailto:contact@breathlink.org" style="color: var(--secondary); text-decoration: none; font-weight: 600; transition: 0.2s;" onmouseover="this.style.color='#0abde3'" onmouseout="this.style.color='var(--secondary)'">contact@breathlink.org</a> 
+        &nbsp;|&nbsp; &copy; 2026 All Rights Reserved
+    </div>
+</footer>
 
 <div id="google_translate_element" style="display:none;"></div>
 
